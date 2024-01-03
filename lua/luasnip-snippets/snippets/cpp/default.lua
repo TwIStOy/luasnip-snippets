@@ -207,4 +207,36 @@ return {
       return quick_type(shortcut)
     end),
   }),
+
+  snippet {
+    "ns%s+(%S+)",
+    name = "namespace",
+    dscr = "namespace",
+    mode = "br",
+    nodes = fmta(
+      [[
+      namespace <name> {
+      <body>
+      }  // namespace <name>
+      ]],
+      {
+        body = i(0),
+        name = f(function(_, snip)
+          local parts = vim.split(snip.captures[1], "::", {
+            plain = true,
+            trimempty = true,
+          })
+          local names = {}
+          for _, part in ipairs(parts) do
+            local nest_parts = vim.split(part, ".", {
+              plain = true,
+              trimempty = true,
+            })
+            vim.list_extend(names, nest_parts)
+          end
+          return table.concat(names, "::")
+        end),
+      }
+    ),
+  },
 }

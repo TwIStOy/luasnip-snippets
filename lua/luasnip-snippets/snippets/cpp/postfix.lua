@@ -3,6 +3,7 @@ local f = ls.function_node
 local tsp = require("luasnip.extras.treesitter_postfix")
 local Utils = require("luasnip-snippets.utils")
 local fmt = require("luasnip.extras.fmt").fmt
+local fmta = require("luasnip.extras.fmt").fmta
 local i = require("luasnip-snippets.nodes").insert_node
 
 local expr_query = [[
@@ -101,7 +102,7 @@ return {
   tsp.treesitter_postfix(
     {
       trig = ".sc",
-      name = "static_cast<TYPE>(?)",
+      name = "(.sc) static_cast<TYPE>(?)",
       dscr = "Wraps an expression with static_cast<TYPE>(?)",
       wordTrig = false,
       reparseBuffer = "live",
@@ -120,6 +121,34 @@ return {
           return Utils.replace_all(parent.snippet.env.LS_TSMATCH, "%s")
         end, {}),
         ["end"] = i(0),
+      }
+    )
+  ),
+
+  tsp.treesitter_postfix(
+    {
+      trig = ".in",
+      name = "(.in) if (...find)",
+      dscr = "Expands to an if-expr to find an element in map-like object",
+      wordTrig = false,
+      reparseBuffer = "live",
+      matchTSNode = {
+        query = expr_query,
+        query_lang = "cpp",
+      },
+    },
+    fmta(
+      [[
+      if (auto it = <expr>.find(<key>); it != <expr>.end()) {
+        <cursor>
+      }
+      ]],
+      {
+        cursor = i(0),
+        key = i(1, "Key"),
+        expr = f(function(_, parent)
+          return Utils.replace_all(parent.snippet.env.LS_TSMATCH, "%s")
+        end, {}),
       }
     )
   ),

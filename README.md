@@ -46,12 +46,13 @@ ls.setup({
 
 #### Normal Snippets
 
-|    Trig    | Desc                                                                                             | Context Required |
-| :--------: | ------------------------------------------------------------------------------------------------ | :--------------: |
-|    `fn`    | Expand to lambda function in argument list or function body, otherwise expand to normal function |        No        |
-| `\|trans`  | Expand to ranges::views::transform pipe.                                                         |        No        |
-| `\|filter` | Expand to ranges::views::filter pipe.                                                            |        No        |
-|   `cpo`    | Expand to customize point object.                                                                |        No        |
+|    Trig     | Desc                                                                                             | Context Required |
+| :---------: | ------------------------------------------------------------------------------------------------ | :--------------: |
+|    `fn`     | Expand to lambda function in argument list or function body, otherwise expand to normal function |        No        |
+|  `\|trans`  | Expand to ranges::views::transform pipe.                                                         |        No        |
+| `\|filter`  | Expand to ranges::views::filter pipe.                                                            |        No        |
+|    `cpo`    | Expand to customize point object.                                                                |        No        |
+| `ns%s(%S+)` | Expand to namespace block (including comments).                                                  |        No        |
 
 #### Auto-snippets
 
@@ -115,6 +116,7 @@ ls.setup({
 |   `.ts`   | Switch indent's coding style between `CamelCase` and `snake_case`. |      `indent`      |
 |   `.sc`   | Wraps with `static_cast<>(?)`                                      |     `any_expr`     |
 | `.single` | Wraps with `ranges::views::single(?)`                              |     `any_expr`     |
+|   `.in`   | Expands to `if (...find)` statements.                              |     `any_expr`     |
 
 </details>
 
