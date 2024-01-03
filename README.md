@@ -28,8 +28,6 @@ ls.setup({
 
 ## Snippets
 
-Snippets which trigger ends with "!" are `autosnippet`.
-
 <details>
 <summary>All</summary>
 
@@ -48,20 +46,33 @@ Snippets which trigger ends with "!" are `autosnippet`.
 
 #### Normal Snippets
 
-|    Trig    | Desc                                                                                             |       Context Required        |
-| :--------: | ------------------------------------------------------------------------------------------------ | :---------------------------: |
-|  `ctor!`   | Expand to default constructor                                                                    |           In Class            |
-|  `dtor!`   | Expand to default destructor                                                                     |           In Class            |
-|   `cc!`    | Expand to default copy constructor                                                               |           In Class            |
-|   `mv!`    | Expand to default move constructor                                                               |           In Class            |
-|   `ncc!`   | Expand to delete copy constructor                                                                |           In Class            |
-|   `nmv!`   | Expand to delete move constructor                                                                |           In Class            |
-|   `ncm!`   | Expand to delete copy and move constructor                                                       |           In Class            |
-|    `fn`    | Expand to lambda function in argument list or function body, otherwise expand to normal function |              No               |
-| `\|trans`  | Expand to ranges::views::transform pipe.                                                         |              No               |
-| `\|filter` | Expand to ranges::views::filter pipe.                                                            |              No               |
-|   `cpo`    | Expand to customize point object.                                                                |              No               |
-|   `once`   | Expand to `pragma once` marker at the front of the file.                                         | All lines before are comments |
+|    Trig    | Desc                                                                                             | Context Required |
+| :--------: | ------------------------------------------------------------------------------------------------ | :--------------: |
+|    `fn`    | Expand to lambda function in argument list or function body, otherwise expand to normal function |        No        |
+| `\|trans`  | Expand to ranges::views::transform pipe.                                                         |        No        |
+| `\|filter` | Expand to ranges::views::filter pipe.                                                            |        No        |
+|   `cpo`    | Expand to customize point object.                                                                |        No        |
+
+#### Auto-snippets
+
+|  Trig   | Desc                                                     |       Context Required        |
+| :-----: | -------------------------------------------------------- | :---------------------------: |
+| `ctor!` | Expand to default constructor                            |           In Class            |
+| `dtor!` | Expand to default destructor                             |           In Class            |
+|  `cc!`  | Expand to default copy constructor                       |           In Class            |
+|  `mv!`  | Expand to default move constructor                       |           In Class            |
+| `ncc!`  | Expand to delete copy constructor                        |           In Class            |
+| `nmv!`  | Expand to delete move constructor                        |           In Class            |
+| `ncm!`  | Expand to delete copy and move constructor               |           In Class            |
+| `once`  | Expand to `pragma once` marker at the front of the file. | All lines before are comments |
+|  `u8`   | Expand to `uint8_t`.                                     |              No               |
+|  `u16`  | Expand to `uint16_t`.                                    |              No               |
+|  `u32`  | Expand to `uint32_t`.                                    |              No               |
+|  `u64`  | Expand to `uint64_t`.                                    |              No               |
+|  `i8`   | Expand to `int8_t`.                                      |              No               |
+|  `i16`  | Expand to `int16_t`.                                     |              No               |
+|  `i32`  | Expand to `int32_t`.                                     |              No               |
+|  `i64`  | Expand to `int64_t`.                                     |              No               |
 
 #### Postfix Snippets
 

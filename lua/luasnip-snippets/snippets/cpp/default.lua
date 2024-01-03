@@ -47,6 +47,23 @@ local function cpo_snippet()
   }
 end
 
+---@param bits number
+---@param unsigned boolean
+local function int_type_snippet(bits, unsigned)
+  local prefix = unsigned and "u" or ""
+  local trig = (unsigned and "u" or "i") .. bits
+  local expand = ("%sint%s_t"):format(prefix, bits)
+  return snippet {
+    trig,
+    name = ("(%s) %s"):format(trig, expand),
+    desc = ("Expands to %s"):format(expand),
+    mode = "wA",
+    nodes = {
+      t(expand),
+    },
+  }
+end
+
 ---@param trig string
 ---@param func string
 local function ranges_views_snippet(trig, func)
@@ -95,4 +112,14 @@ return {
       t { "#pragma once  // NOLINT(build/header_guard)", "" },
     },
   },
+
+  -- fast int types
+  int_type_snippet(8, true),
+  int_type_snippet(8, false),
+  int_type_snippet(16, true),
+  int_type_snippet(16, false),
+  int_type_snippet(32, true),
+  int_type_snippet(32, false),
+  int_type_snippet(64, true),
+  int_type_snippet(64, false),
 }
