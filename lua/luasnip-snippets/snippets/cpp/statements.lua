@@ -3,11 +3,7 @@ local UtilsTS = require("luasnip-snippets.utils.treesitter")
 local d = ls.dynamic_node
 local sn = ls.snippet_node
 local t = ls.text_node
-local f = ls.function_node
 local fmta = require("luasnip.extras.fmt").fmta
-local CppCommons = require("luasnip-snippets.snippets.cpp.commons")
-local i = ls.insert_node
-local c = ls.choice_node
 
 local function inject_class_name(_, line_to_cursor, match, captures)
   -- check if at the line begin

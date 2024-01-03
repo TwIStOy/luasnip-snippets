@@ -36,7 +36,7 @@ local expr_node_types = {
 ---@param expand string
 local function expr_tsp(trig, expand)
   local name = ("(%s) %s"):format(trig, expand)
-  local dscr = ("Wrap expression with %s"):format(expand)
+  local dscr = ("Wraps an expression with %s"):format(expand)
   local replaced = expand:gsub("?", "%%s")
 
   return tsp.treesitter_postfix({

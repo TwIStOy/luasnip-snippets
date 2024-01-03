@@ -3,7 +3,6 @@ local UtilsTS = require("luasnip-snippets.utils.treesitter")
 local d = ls.dynamic_node
 local sn = ls.snippet_node
 local t = ls.text_node
-local f = ls.function_node
 local fmta = require("luasnip.extras.fmt").fmta
 local CppCommons = require("luasnip-snippets.snippets.cpp.commons")
 local i = ls.insert_node
@@ -55,7 +54,7 @@ local function is_qualified_function(node)
   return false
 end
 
-local function inject_expanding_environment(_, line_to_cursor, match, captures)
+local function inject_expanding_environment(_, _, match, captures)
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   local buf = vim.api.nvim_get_current_buf()
 
