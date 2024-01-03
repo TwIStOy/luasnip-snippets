@@ -96,6 +96,70 @@ local all_lines_before_are_all_comments =
     "^%s*$",
   }
 
+---@param shortcut string
+---@return string?
+local function quick_type(shortcut)
+  --   v = std::vector, 1
+  --   i = int32_t, 0
+  --   s = std::string, 0
+  --   u = uint32_t, 0
+  --   m = absl::flat_hash_map, 2
+  --   t = std::tuple, *
+  ---@param s string
+  ---@return string?, string?
+  local function expect_typename(s)
+    local first, rest = s:match("^(%l)(.*)$")
+    if first == nil then
+      return nil, nil
+    end
+    if first == "v" then
+      local typename, sub_rest = expect_typename(rest)
+      if typename == nil then
+        return "std::vector", rest
+      else
+        return ("std::vector<%s>"):format(typename), sub_rest
+      end
+    elseif first == "i" then
+      return "int32_t", rest
+    elseif first == "s" then
+      return "std::string", rest
+    elseif first == "u" then
+      return "uint32_t", rest
+    elseif first == "m" then
+      local key_type, key_rest = expect_typename(rest)
+      if key_type == nil or key_rest == nil then
+        return "absl::flat_hash_map", rest
+      end
+      local value_type, value_rest = expect_typename(key_rest)
+      if value_type == nil or value_rest == nil then
+        return "absl::flat_hash_map", rest
+      end
+      return ("absl::flat_hash_map<%s, %s>"):format(key_type, value_type),
+        value_rest
+    elseif first == "t" then
+      local parameters = {}
+      while #rest > 0 do
+        local typename, sub_rest = expect_typename(rest)
+        if typename == nil or sub_rest == nil then
+          if #parameters == 0 then
+            return "std::tuple", rest
+          end
+          return ("std::tuple<%s>"):format(table.concat(parameters, ", ")), rest
+        end
+        parameters[#parameters + 1] = typename
+        rest = sub_rest
+      end
+      return ("std::tuple<%s>"):format(table.concat(parameters, ", ")), rest
+    end
+  end
+
+  local result, rest = expect_typename(shortcut)
+  if rest and #rest > 0 then
+    print(("After QET eval, rest not empty: %s"):format(rest))
+  end
+  return result
+end
+
 return {
   cpo_snippet,
 
@@ -123,4 +187,25 @@ return {
   int_type_snippet(32, false),
   int_type_snippet(64, true),
   int_type_snippet(64, false),
+
+  -- quick expand, expand stl types
+  --   v = std::vector
+  --   i = int32_t
+  --   s = std::string
+  --   u = uint32_t
+  --   m = absl::flat_hash_map
+  --   t = std::tuple
+  ls.s({
+    trig = "t(%l+)!",
+    wordTrig = true,
+    regTrig = true,
+    snippetType = "autosnippet",
+    name = "(t) Quick types",
+    desc = "Expands to a type",
+  }, {
+    f(function(_, snip)
+      local shortcut = snip.captures[1]
+      return quick_type(shortcut)
+    end),
+  }),
 }

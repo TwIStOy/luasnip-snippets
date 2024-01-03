@@ -55,24 +55,36 @@ ls.setup({
 
 #### Auto-snippets
 
-|  Trig   | Desc                                                     |       Context Required        |
-| :-----: | -------------------------------------------------------- | :---------------------------: |
-| `ctor!` | Expand to default constructor                            |           In Class            |
-| `dtor!` | Expand to default destructor                             |           In Class            |
-|  `cc!`  | Expand to default copy constructor                       |           In Class            |
-|  `mv!`  | Expand to default move constructor                       |           In Class            |
-| `ncc!`  | Expand to delete copy constructor                        |           In Class            |
-| `nmv!`  | Expand to delete move constructor                        |           In Class            |
-| `ncm!`  | Expand to delete copy and move constructor               |           In Class            |
-| `once`  | Expand to `pragma once` marker at the front of the file. | All lines before are comments |
-|  `u8`   | Expand to `uint8_t`.                                     |              No               |
-|  `u16`  | Expand to `uint16_t`.                                    |              No               |
-|  `u32`  | Expand to `uint32_t`.                                    |              No               |
-|  `u64`  | Expand to `uint64_t`.                                    |              No               |
-|  `i8`   | Expand to `int8_t`.                                      |              No               |
-|  `i16`  | Expand to `int16_t`.                                     |              No               |
-|  `i32`  | Expand to `int32_t`.                                     |              No               |
-|  `i64`  | Expand to `int64_t`.                                     |              No               |
+|   Trig   | Desc                                                     |       Context Required        |
+| :------: | -------------------------------------------------------- | :---------------------------: |
+| `ctor!`  | Expand to default constructor                            |           In Class            |
+| `dtor!`  | Expand to default destructor                             |           In Class            |
+|  `cc!`   | Expand to default copy constructor                       |           In Class            |
+|  `mv!`   | Expand to default move constructor                       |           In Class            |
+|  `ncc!`  | Expand to delete copy constructor                        |           In Class            |
+|  `nmv!`  | Expand to delete move constructor                        |           In Class            |
+|  `ncm!`  | Expand to delete copy and move constructor               |           In Class            |
+|  `once`  | Expand to `pragma once` marker at the front of the file. | All lines before are comments |
+|   `u8`   | Expand to `uint8_t`.                                     |              No               |
+|  `u16`   | Expand to `uint16_t`.                                    |              No               |
+|  `u32`   | Expand to `uint32_t`.                                    |              No               |
+|  `u64`   | Expand to `uint64_t`.                                    |              No               |
+|   `i8`   | Expand to `int8_t`.                                      |              No               |
+|  `i16`   | Expand to `int16_t`.                                     |              No               |
+|  `i32`   | Expand to `int32_t`.                                     |              No               |
+|  `i64`   | Expand to `int64_t`.                                     |              No               |
+| `t(%s)!` | Evaluate (QET) marker, and expand to typename.           |              No               |
+
+##### Quick Expand Type markers
+
+| Marker | Expand Type           | Parameter |
+| :----: | :-------------------- | :-------: |
+|  `v`   | `std::vector`         |     1     |
+|  `i`   | `int32_t`             |     0     |
+|  `u`   | `uint32_t`            |     0     |
+|  `s`   | `std::string`         |     0     |
+|  `m`   | `absl::flat_hash_map` |     2     |
+|  `t`   | `std::tuple`          |    `*`    |
 
 #### Postfix Snippets
 
