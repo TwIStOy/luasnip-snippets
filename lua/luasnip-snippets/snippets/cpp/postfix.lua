@@ -67,9 +67,9 @@ return {
   expr_tsp(".uu", "(void)?"),
 
   tsp.treesitter_postfix({
-    trig = ".cs",
-    name = "(.cs) Change style",
-    dscr = "Change previous indent's style",
+    trig = ".ts",
+    name = "(.ts) Toggle style",
+    dscr = "Toggle previous indent's style",
     wordTrig = false,
     reparseBuffer = "live",
     matchTSNode = {
