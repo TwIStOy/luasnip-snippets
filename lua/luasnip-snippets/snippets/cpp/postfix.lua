@@ -63,6 +63,7 @@ return {
   expr_tsp(".val", "std::declval<?>()"),
   expr_tsp(".dt", "decltype(?)"),
   expr_tsp(".uu", "(void)?"),
+  expr_tsp(".single", "ranges::views::single(?)"),
 
   tsp.treesitter_postfix({
     trig = ".ts",

@@ -1,8 +1,5 @@
 local M = {}
 
--- dummy
----@class LuaSnip.Snippet
-
 ---@alias SnippetOrBuilder LuaSnip.Snippet|fun():SnippetOrBuilder
 
 ---Register snippets to luasnip.
