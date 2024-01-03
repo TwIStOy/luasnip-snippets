@@ -2,6 +2,7 @@ local ls = require("luasnip")
 local snippet = require("luasnip-snippets.nodes").construct_snippet
 local i = require("luasnip-snippets.nodes").insert_node
 local c = require("luasnip-snippets.nodes").choice_node
+local word_snippet = require("luasnip-snippets.nodes").word_expand
 local fmta = require("luasnip.extras.fmt").fmta
 local f = ls.function_node
 local t = ls.text_node

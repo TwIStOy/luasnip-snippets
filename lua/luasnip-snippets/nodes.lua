@@ -98,8 +98,29 @@ local function construct_snippet(opts)
   return ls.s(trig_arg, nodes, opts.opts)
 end
 
+---Construct a snippet for simple expansion. (word) -> (expand)
+---@param word string
+---@param expand string
+---@param mode? string
+local function word_expand(word, expand, mode)
+  local ls = require("luasnip")
+
+  mode = mode or "w"
+  if mode:match("w") == nil then
+    mode = mode .. "w"
+  end
+  return construct_snippet {
+    word,
+    name = ("(%s) %s"):format(word, expand),
+    dscr = ("Quickly expands %s to %s"):format(word, expand),
+    mode = mode,
+    nodes = ls.text_node(expand),
+  }
+end
+
 return {
   insert_node = insert_node,
   choice_node = choice_node,
   construct_snippet = construct_snippet,
+  word_expand = word_expand,
 }
