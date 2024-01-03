@@ -29,6 +29,32 @@ local function at_line_begin(trig)
   return Cond.make_condition(line_begin_cond, line_begin_show_maker(trig))
 end
 
+local function generate_all_lines_before_match_cond(pattern)
+  if type(pattern) == "string" then
+    pattern = { pattern }
+  end
+
+  local function condition()
+    local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+    local lines = vim.api.nvim_buf_get_lines(0, 0, row - 1, false)
+    for _, line in ipairs(lines) do
+      local match = false
+      for _, p in ipairs(pattern) do
+        if line:match(p) then
+          match = true
+          break
+        end
+      end
+      if not match then
+        return false
+      end
+    end
+    return true
+  end
+  return Cond.make_condition(condition, condition)
+end
+
 return {
   at_line_begin = at_line_begin,
+  generate_all_lines_before_match_cond = generate_all_lines_before_match_cond,
 }

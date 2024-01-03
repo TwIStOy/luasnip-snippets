@@ -5,6 +5,7 @@ local c = require("luasnip-snippets.nodes").choice_node
 local fmta = require("luasnip.extras.fmt").fmta
 local f = ls.function_node
 local t = ls.text_node
+local CommonCond = require("luasnip-snippets.utils.common_cond")
 
 local function cpo_snippet()
   local function cpo_func_to_namespace(name)
@@ -71,9 +72,27 @@ local function ranges_views_snippet(trig, func)
   }
 end
 
+local all_lines_before_are_all_comments =
+  CommonCond.generate_all_lines_before_match_cond {
+    "^%s*//.*$",
+    "^%s*$",
+  }
+
 return {
   cpo_snippet,
 
   ranges_views_snippet("|trans", "transform"),
   ranges_views_snippet("|filter", "filter"),
+
+  -- progma once
+  snippet {
+    "once",
+    name = "(once) #Progma once",
+    dscr = "Expands to progma once with comments",
+    mode = "bwA",
+    cond = all_lines_before_are_all_comments,
+    nodes = {
+      t { "#pragma once  // NOLINT(build/header_guard)", "" },
+    },
+  },
 }

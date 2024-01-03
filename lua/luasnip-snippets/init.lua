@@ -37,11 +37,16 @@ local function load_and_add_snippet(fts)
   end
 end
 
-function M.setup()
+---@param opts? LSSnippets.Config
+function M.setup(opts)
+  local Config = require("luasnip-snippets.config")
+  Config.setup(opts)
+
   -- register snippets
   load_and_add_snippet {
     "cpp",
     "rust",
+    "all",
   }
 end
 
