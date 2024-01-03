@@ -18,6 +18,13 @@ local expr_query = [[
 ] @prefix
 ]]
 
+local indent_query = [[
+[
+  (identifier)
+  (field_identifier)
+] @prefix
+]]
+
 ---@param trig string
 ---@param expand string
 ---@param dscr string?
@@ -58,6 +65,40 @@ return {
   expr_tsp(".val", "std::declval<?>()"),
   expr_tsp(".dt", "decltype(?)"),
   expr_tsp(".uu", "(void)?"),
+
+  tsp.treesitter_postfix({
+    trig = ".cs",
+    name = "(.cs) Change style",
+    dscr = "Change previous indent's style",
+    wordTrig = false,
+    reparseBuffer = "live",
+    matchTSNode = {
+      query = indent_query,
+      query_lang = "cpp",
+    },
+  }, {
+    f(function(_, parent)
+      -- switch name style from snake to pascal or vice versa
+      -- name must be a oneline identifier
+      local name = table.concat(parent.snippet.env.LS_TSMATCH, "\n")
+      if name:match("^[A-Z]") then
+        -- is pascal case now, change to snake case
+        name = name:gsub("(%u+)(%u%l)", "%1_%2")
+        name = name:gsub("([a-z0-9])([A-Z])", "%1_%2")
+        name = name:gsub("-", "_")
+        return name:lower()
+      else
+        -- is snake case now, change to pascal case
+        return name
+          :gsub("_(%l)", function(s)
+            return s:upper()
+          end)
+          :gsub("^%l", string.upper)
+          :gsub("_$", "")
+      end
+    end, {}),
+  }),
+
   tsp.treesitter_postfix(
     {
       trig = ".sc",
