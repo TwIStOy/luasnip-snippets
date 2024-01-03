@@ -57,6 +57,7 @@ return {
   expr_tsp(".fwd", "std::forward<decltype(?)>(?)"),
   expr_tsp(".val", "std::declval<?>()"),
   expr_tsp(".dt", "decltype(?)"),
+  expr_tsp(".uu", "(void)?"),
   tsp.treesitter_postfix(
     {
       trig = ".sc",
