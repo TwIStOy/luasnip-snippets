@@ -43,6 +43,7 @@ end
 function M.setup()
   -- register snippets
   load_and_add_snippet {
+    "cpp",
     "rust",
   }
 end
