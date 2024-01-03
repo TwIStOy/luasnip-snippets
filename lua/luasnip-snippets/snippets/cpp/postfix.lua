@@ -4,8 +4,6 @@ local tsp = require("luasnip.extras.treesitter_postfix")
 local Utils = require("luasnip-snippets.utils")
 local fmt = require("luasnip.extras.fmt").fmt
 local i = require("luasnip-snippets.nodes").insert_node
-local c = require("luasnip-snippets.nodes").choice_node
-local t = ls.text_node
 
 local expr_query = [[
 [
