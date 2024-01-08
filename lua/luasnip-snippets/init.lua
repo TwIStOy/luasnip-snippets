@@ -46,6 +46,7 @@ function M.setup(opts)
   load_and_add_snippet {
     "cpp",
     "rust",
+    "lua",
     "all",
   }
 end
