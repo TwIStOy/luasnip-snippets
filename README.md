@@ -53,6 +53,8 @@ ls.setup({
 | `\|filter`  | Expand to ranges::views::filter pipe.                                                            |        No        |
 |    `cpo`    | Expand to customize point object.                                                                |        No        |
 | `ns%s(%S+)` | Expand to namespace block (including comments).                                                  |        No        |
+|    `itf`    | Expand to a struct with default virtual destruction.                                             |        No        |
+|    `pvf`    | Expand to a pure virtual function declaration.                                                   |        No        |
 
 #### Auto-snippets
 
@@ -75,6 +77,8 @@ ls.setup({
 |  `i32`   | Expand to `int32_t`.                                     |              No               |
 |  `i64`   | Expand to `int64_t`.                                     |              No               |
 | `t(%s)!` | Evaluate (QET) marker, and expand to typename.           |              No               |
+|   `#"`   | Expand to include statement with quotes. `#include ""`.  |              No               |
+|   `#<`   | Expand to include statement with `<>`. `#include <>`.    |              No               |
 
 ##### Quick Expand Type markers
 

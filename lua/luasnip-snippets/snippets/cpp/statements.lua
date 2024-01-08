@@ -4,6 +4,10 @@ local d = ls.dynamic_node
 local sn = ls.snippet_node
 local t = ls.text_node
 local fmta = require("luasnip.extras.fmt").fmta
+local snippet = require("luasnip-snippets.nodes").construct_snippet
+local i = require("luasnip-snippets.nodes").insert_node
+local c = require("luasnip-snippets.nodes").choice_node
+local rep = require("luasnip.extras").rep
 
 local function inject_class_name(_, line_to_cursor, match, captures)
   -- check if at the line begin
@@ -135,4 +139,36 @@ return {
     <cls>(<cls>&&) = delete;
     ]]
   ),
+  snippet {
+    "itf",
+    name = "Interface",
+    dscr = "Declare interface",
+    mode = "bw",
+    nodes = fmta(
+      [[
+        struct <> {
+          virtual ~<>() = default;
+
+          <>
+        };
+        ]],
+      {
+        i(1, "Interface"),
+        rep(1),
+        i(0),
+      }
+    ),
+  },
+  snippet {
+    "pvf",
+    name = "Pure virtual function",
+    dscr = "Declare pure virtual function",
+    mode = "bw",
+    nodes = fmta("virtual <ret_t> <name>(<args>) <specifier> = 0;", {
+      name = i(1, "func", { dscr = "Function name" }),
+      args = i(2, "args", { dscr = "Function arguments" }),
+      specifier = i(3, "const", { dscr = "Function specifier" }),
+      ret_t = i(4, "void", { dscr = "Return type" }),
+    }),
+  },
 }

@@ -177,6 +177,30 @@ return {
     },
   },
 
+  -- include short cuts
+  snippet {
+    '#"',
+    name = 'include ""',
+    dscr = "#include with quotes",
+    mode = "bA",
+    nodes = {
+      t('#include "'),
+      i(1, "header"),
+      t('"'),
+    },
+  },
+  snippet {
+    "#<",
+    name = "include <>",
+    dscr = "#include with <>",
+    mode = "bA",
+    nodes = {
+      t("#include <"),
+      i(1, "header"),
+      t(">"),
+    },
+  },
+
   -- fast int types
   int_type_snippet(8, true),
   int_type_snippet(8, false),
