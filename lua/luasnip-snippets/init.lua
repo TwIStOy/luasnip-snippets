@@ -47,6 +47,7 @@ function M.setup(opts)
     "cpp",
     "rust",
     "lua",
+    "dart",
     "all",
   }
 end

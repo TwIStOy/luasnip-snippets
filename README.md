@@ -194,3 +194,28 @@ ls.setup({
 | `.println` | Wraps with `println!("{:?}", ?)`.                           |       `expr`       |
 
 </details>
+
+<details>
+<summary>Dart</summary>
+
+#### Normal Snippets
+
+| Trig  | Desc                                             | Context Required |
+| :---: | ------------------------------------------------ | :--------------: |
+| `fn`  | Expands to function definition.                  |        No        |
+| `wfn` | Expands to function definition returns a widget. |        No        |
+| `afn` | Expands to an async function definition.         |        No        |
+
+#### Auto-snippets
+
+|  Trig   | Desc                                      | Context Required |
+| :-----: | ----------------------------------------- | :--------------: |
+| `ctor!` | Expands to class constructor function.    |     In Class     |
+|  `js!`  | Expands to json-related methods.          |     In Class     |
+| `init!` | Expands to `initState` override function. |        No        |
+| `dis!`  | Expands to `dispose` override function.   |        No        |
+| `for!`  | Expands to for-loop.                      |        No        |
+| `sfw!`  | Expands to `StatefulWidget` class.        |        No        |
+| `slw!`  | Expands to `StatelessWidget` class.       |        No        |
+
+</details>

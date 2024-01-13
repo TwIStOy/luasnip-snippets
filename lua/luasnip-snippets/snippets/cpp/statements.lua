@@ -6,7 +6,6 @@ local t = ls.text_node
 local fmta = require("luasnip.extras.fmt").fmta
 local snippet = require("luasnip-snippets.nodes").construct_snippet
 local i = require("luasnip-snippets.nodes").insert_node
-local c = require("luasnip-snippets.nodes").choice_node
 local rep = require("luasnip.extras").rep
 
 local function inject_class_name(_, line_to_cursor, match, captures)
