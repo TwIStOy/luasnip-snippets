@@ -5,6 +5,7 @@ local M = {}
 ---@param template string
 ---@return string[]
 function M.replace_all(match, template)
+  match = vim.F.if_nil(match, "")
   ---@type string
   local match_str = ""
   if type(match) == "table" then
