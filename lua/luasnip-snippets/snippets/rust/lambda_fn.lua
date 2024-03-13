@@ -59,31 +59,6 @@ return {
     },
     d(1, function(_, parent)
       local env = parent.env
-      local last_type, last_type_row, last_type_col
-      local keys = {
-        "CPP_ARGUMENT_START",
-        "CPP_FUNCTION_BODY_START",
-        "CPP_CLASS_BODY_START",
-      }
-      for _, key in ipairs(keys) do
-        if env[key] ~= nil then
-          if last_type == nil then
-            last_type = key
-            last_type_row = env[key][1]
-            last_type_col = env[key][2]
-          else
-            if
-              last_type_row < env[key][1]
-              or (last_type_row == env[key][1] and last_type_col < env[key][2])
-            then
-              last_type = key
-              last_type_row = env[key][1]
-              last_type_col = env[key][2]
-            end
-          end
-        end
-      end
-
       if
         env.FUNCTION_ITEM_START ~= nil or env.CLOSURE_EXPRESSION_START ~= nil
       then

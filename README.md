@@ -210,11 +210,12 @@ ls.setup({
 
 #### Normal Snippets
 
-| Trig  | Desc                                             | Context Required |
-| :---: | ------------------------------------------------ | :--------------: |
-| `fn`  | Expands to function definition.                  |        No        |
-| `wfn` | Expands to function definition returns a widget. |        No        |
-| `afn` | Expands to an async function definition.         |        No        |
+| Trig  | Desc                                                                 | Context Required |
+| :---: | -------------------------------------------------------------------- | :--------------: |
+| `fn`  | Expands to function definition.                                      |        No        |
+| `wfn` | Expands to function definition returns a widget.                     |        No        |
+| `afn` | Expands to an async function definition.                             |        No        |
+| `tfn` | Expands to a test function. `#[test]` or `#[tokio::test]` supported. |        No        |
 
 #### Auto-snippets
 

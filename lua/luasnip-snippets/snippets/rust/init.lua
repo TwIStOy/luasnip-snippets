@@ -5,6 +5,7 @@ local function setup()
     "default",
     "postfix",
     "lambda_fn",
+    "test_fn",
   })
 end
 
