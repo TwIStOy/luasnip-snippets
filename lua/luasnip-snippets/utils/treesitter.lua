@@ -77,4 +77,15 @@ function M.find_first_parent(node, types)
   return find_parent_impl(node)
 end
 
+---Returns the start pos of a `TSNode`
+---@param node TSNode?
+---@return { [1]: number, [2]: number }?
+function M.start_pos(node)
+  if node == nil then
+    return nil
+  end
+  local start_row, start_col, _, _ = vim.treesitter.get_node_range(node)
+  return { start_row, start_col }
+end
+
 return M

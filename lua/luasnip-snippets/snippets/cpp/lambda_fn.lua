@@ -5,8 +5,8 @@ local sn = ls.snippet_node
 local t = ls.text_node
 local fmta = require("luasnip.extras.fmt").fmta
 local CppCommons = require("luasnip-snippets.snippets.cpp.commons")
-local i = ls.insert_node
-local c = ls.choice_node
+local i = require("luasnip-snippets.nodes").insert_node
+local c = require("luasnip-snippets.nodes").choice_node
 
 ---@class LSSnippets.Cpp.Fn.Env
 ---@field CPP_ARGUMENT_START { [1]: number, [2]: number }?
@@ -14,17 +14,6 @@ local c = ls.choice_node
 ---@field CPP_CLASS_BODY_START { [1]: number, [2]: number }?
 ---@field CPP_IN_HEADER_FILE boolean
 ---@field CPP_IN_QUALIFIED_FUNCTION boolean
-
----Returns the start pos of a `TSNode`
----@param node TSNode?
----@return { [1]: number, [2]: number }?
-local function start_pos(node)
-  if node == nil then
-    return nil
-  end
-  local start_row, start_col, _, _ = vim.treesitter.get_node_range(node)
-  return { start_row, start_col }
-end
 
 ---Returns if the node's declarator is qualified or not.
 ---@param node TSNode? `function_definition` node
@@ -74,19 +63,25 @@ local function inject_expanding_environment(_, _, match, captures)
       trigger = match,
       capture = captures,
       env_override = {
-        CPP_ARGUMENT_START = start_pos(UtilsTS.find_first_parent(node, {
-          "argument_list",
-          "parameter_list",
-        })),
-        CPP_FUNCTION_BODY_START = start_pos(UtilsTS.find_first_parent(node, {
-          "function_definition",
-          "lambda_expression",
-          "field_declaration",
-        })),
-        CPP_CLASS_BODY_START = start_pos(UtilsTS.find_first_parent(node, {
-          "struct_specifier",
-          "class_specifier",
-        })),
+        CPP_ARGUMENT_START = UtilsTS.start_pos(
+          UtilsTS.find_first_parent(node, {
+            "argument_list",
+            "parameter_list",
+          })
+        ),
+        CPP_FUNCTION_BODY_START = UtilsTS.start_pos(
+          UtilsTS.find_first_parent(node, {
+            "function_definition",
+            "lambda_expression",
+            "field_declaration",
+          })
+        ),
+        CPP_CLASS_BODY_START = UtilsTS.start_pos(
+          UtilsTS.find_first_parent(node, {
+            "struct_specifier",
+            "class_specifier",
+          })
+        ),
         CPP_IN_HEADER_FILE = CppCommons.in_header_file(),
         CPP_IN_QUALIFIED_FUNCTION = is_qualified_function(
           UtilsTS.find_first_parent(node, {

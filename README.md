@@ -155,6 +155,16 @@ ls.setup({
 <details>
 <summary>Rust</summary>
 
+#### Normal Snippets
+
+| Trig | Desc                                                                                               | Context Required |
+| :--: | -------------------------------------------------------------------------------------------------- | :--------------: |
+| `fn` | Expands to lambda function in argument list or function body, otherwise expand to normal function. |        No        |
+| `pc` | Expands to `pub(crate)`.                                                                           |        No        |
+| `ps` | Expands to `pub(super)`.                                                                           |        No        |
+| `ii` | Expands to `#[inline]`.                                                                            |        No        |
+| `ia` | Expands to `#[inline(always)]`.                                                                    |        No        |
+
 #### Postfix Snippets
 
 ```scheme
