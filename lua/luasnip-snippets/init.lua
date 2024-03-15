@@ -48,6 +48,7 @@ function M.setup(opts)
     "rust",
     "lua",
     "dart",
+    "nix",
     "all",
   }
 end
