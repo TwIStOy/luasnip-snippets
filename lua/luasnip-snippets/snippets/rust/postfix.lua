@@ -9,6 +9,8 @@ local expr_query = [[
   (call_expression)
   (identifier)
   (field_expression)
+  (integer_literal)
+  (string_literal)
 ] @prefix
 ]]
 
@@ -18,7 +20,10 @@ local expr_or_type_query = [[
   (call_expression)
   (identifier)
   (field_expression)
+  (integer_literal)
+  (string_literal)
   
+  (type_identifier)
   (generic_type)
   (scoped_type_identifier)
   (reference_type)
@@ -30,6 +35,8 @@ local expr_node_types = {
   ["call_expression"] = true,
   ["identifier"] = true,
   ["field_expression"] = true,
+  ["integer_literal"] = true,
+  ["string_literal"] = true,
 }
 
 ---@param trig string
