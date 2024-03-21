@@ -230,3 +230,26 @@ ls.setup({
 | `slw!`  | Expands to `StatelessWidget` class.       |        No        |
 
 </details>
+
+<details>
+<summary>Nix</summary>
+
+#### Normal Snippets
+
+|   Trig    | Desc                             | Context Required |
+| :-------: | -------------------------------- | :--------------: |
+| `@module` | Expands to a nix module declare. |        No        |
+
+#### Postfix Snippets
+
+```scheme
+[
+  (identifier)
+] @prefix
+```
+
+| Trig  | Desc (placehoder: `?`)              | Expr before cursor |
+| :---: | ----------------------------------- | :----------------: |
+| `.on` | Expands to enable option statement. |     `any_expr`     |
+
+</details>
