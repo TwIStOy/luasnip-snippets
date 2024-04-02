@@ -21,6 +21,8 @@ local expr_query = [[
   (function_call)
   (identifier)
   (expression_list)
+  (dot_index_expression)
+  (bracket_index_expression)
 ] @prefix
 ]]
 
