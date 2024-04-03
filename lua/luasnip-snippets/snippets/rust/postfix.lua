@@ -39,30 +39,6 @@ local expr_node_types = {
   ["string_literal"] = true,
 }
 
----@param trig string
----@param expand string
-local function expr_tsp(trig, expand)
-  local name = ("(%s) %s"):format(trig, expand)
-  local dscr = ("Wraps an expression with %s"):format(expand)
-  local replaced = expand:gsub("?", "%%s")
-
-  return tsp.treesitter_postfix({
-    trig = trig,
-    name = name,
-    dscr = dscr,
-    wordTrig = false,
-    reparseBuffer = "live",
-    matchTSNode = {
-      query = expr_query,
-      query_lang = "rust",
-    },
-  }, {
-    f(function(_, parent)
-      return Utils.replace_all(parent.snippet.env.LS_TSMATCH, replaced)
-    end, {}),
-  })
-end
-
 local function expr_or_type_tsp(trig, typename, expr_callback, type_callback)
   local name = ("(%s) %s"):format(trig, typename)
   local dscr = ("Wrap expression/type with %s"):format(typename)
@@ -91,7 +67,21 @@ local function expr_or_type_tsp(trig, typename, expr_callback, type_callback)
   })
 end
 
-local function simple_expr_or_type_tsp(trig, typename)
+local function result_ok_type_callback(match)
+  return Utils.replace_all(match, "Result<%s, _>")
+end
+
+local function result_err_type_callback(match)
+  return Utils.replace_all(match, "Result<_, %s>")
+end
+
+local function build_simple_replace_callback(replaced)
+  return function(match)
+    return Utils.replace_all(match, replaced)
+  end
+end
+
+local function new_expr_or_type_tsp(trig, typename)
   local expr_callback = function(match)
     return Utils.replace_all(match, typename .. "::new(%s)")
   end
@@ -101,37 +91,37 @@ local function simple_expr_or_type_tsp(trig, typename)
   return expr_or_type_tsp(trig, typename, expr_callback, type_callback)
 end
 
-local function result_type_callback(match)
-  return Utils.replace_all(match, "Result<%s, _>")
-end
-
-local function build_simple_replace_callback(replaced)
-  return function(match)
-    return Utils.replace_all(match, replaced)
-  end
+local function both_replace_expr_or_type_tsp(trig, pattern)
+  local template = pattern:gsub("?", "%%s")
+  return expr_or_type_tsp(
+    trig,
+    pattern,
+    build_simple_replace_callback(template),
+    build_simple_replace_callback(template)
+  )
 end
 
 return {
-  simple_expr_or_type_tsp(".rc", "Rc"),
-  simple_expr_or_type_tsp(".arc", "Arc"),
-  simple_expr_or_type_tsp(".box", "Box"),
-  simple_expr_or_type_tsp(".mu", "Mutex"),
-  simple_expr_or_type_tsp(".rw", "RwLock"),
-  simple_expr_or_type_tsp(".cell", "Cell"),
-  simple_expr_or_type_tsp(".refcell", "RefCell"),
-  simple_expr_or_type_tsp(".ref", "&?"),
-  simple_expr_or_type_tsp(".refm", "&mut ?"),
+  new_expr_or_type_tsp(".rc", "Rc"),
+  new_expr_or_type_tsp(".arc", "Arc"),
+  new_expr_or_type_tsp(".box", "Box"),
+  new_expr_or_type_tsp(".mu", "Mutex"),
+  new_expr_or_type_tsp(".rw", "RwLock"),
+  new_expr_or_type_tsp(".cell", "Cell"),
+  new_expr_or_type_tsp(".refcell", "RefCell"),
+  both_replace_expr_or_type_tsp(".ref", "&?"),
+  both_replace_expr_or_type_tsp(".refm", "&mut ?"),
   expr_or_type_tsp(
     ".ok",
     "Ok(?)",
     build_simple_replace_callback("Ok(%s)"),
-    result_type_callback
+    result_ok_type_callback
   ),
   expr_or_type_tsp(
     ".err",
     "Err(?)",
     build_simple_replace_callback("Err(%s)"),
-    result_type_callback
+    result_err_type_callback
   ),
   expr_or_type_tsp(
     ".some",
@@ -145,7 +135,7 @@ return {
     name = [[(.println) println!("{:?}", ?)]],
     dscr = [[Wrap expression with println!("{:?}", ?)]],
     wordTrig = false,
-    reparseBuffer = nil,
+    reparseBuffer = "live",
     matchTSNode = {
       query = expr_query,
       query_lang = "rust",
@@ -164,7 +154,7 @@ return {
     name = [[(.match) match ?]],
     dscr = [[Wrap expression with match ? block]],
     wordTrig = false,
-    reparseBuffer = nil,
+    reparseBuffer = "live",
     matchTSNode = {
       query = expr_query,
       query_lang = "rust",
