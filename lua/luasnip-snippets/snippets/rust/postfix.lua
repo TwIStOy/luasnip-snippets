@@ -63,7 +63,7 @@ local function expr_tsp(trig, expand)
   })
 end
 
-local function expr_or_type_tsp(trig, typename)
+local function expr_or_type_tsp(trig, typename, expr_callback, type_callback)
   local name = ("(%s) %s"):format(trig, typename)
   local dscr = ("Wrap expression/type with %s"):format(typename)
   return tsp.treesitter_postfix({
@@ -82,28 +82,63 @@ local function expr_or_type_tsp(trig, typename)
       local data = env.LS_TSDATA
       if expr_node_types[data.prefix.type] then
         -- is expr
-        return Utils.replace_all(env.LS_TSMATCH, typename .. "::new(%s)")
+        return expr_callback(env.LS_TSMATCH)
       else
         -- is type
-        return Utils.replace_all(env.LS_TSMATCH, typename .. "<%s>")
+        return type_callback(env.LS_TSMATCH)
       end
     end),
   })
 end
 
+local function simple_expr_or_type_tsp(trig, typename)
+  local expr_callback = function(match)
+    return Utils.replace_all(match, typename .. "::new(%s)")
+  end
+  local type_callback = function(match)
+    return Utils.replace_all(match, typename .. "<%s>")
+  end
+  return expr_or_type_tsp(trig, typename, expr_callback, type_callback)
+end
+
+local function result_type_callback(match)
+  return Utils.replace_all(match, "Result<%s, _>")
+end
+
+local function build_simple_replace_callback(replaced)
+  return function(match)
+    return Utils.replace_all(match, replaced)
+  end
+end
+
 return {
-  expr_or_type_tsp(".rc", "Rc"),
-  expr_or_type_tsp(".arc", "Arc"),
-  expr_or_type_tsp(".box", "Box"),
-  expr_or_type_tsp(".mu", "Mutex"),
-  expr_or_type_tsp(".rw", "RwLock"),
-  expr_or_type_tsp(".cell", "Cell"),
-  expr_or_type_tsp(".refcell", "RefCell"),
-  expr_or_type_tsp(".ref", "&?"),
-  expr_or_type_tsp(".refm", "&mut ?"),
-  expr_tsp(".ok", "Ok(?)"),
-  expr_tsp(".err", "Err(?)"),
-  expr_tsp(".some", "Some(?)"),
+  simple_expr_or_type_tsp(".rc", "Rc"),
+  simple_expr_or_type_tsp(".arc", "Arc"),
+  simple_expr_or_type_tsp(".box", "Box"),
+  simple_expr_or_type_tsp(".mu", "Mutex"),
+  simple_expr_or_type_tsp(".rw", "RwLock"),
+  simple_expr_or_type_tsp(".cell", "Cell"),
+  simple_expr_or_type_tsp(".refcell", "RefCell"),
+  simple_expr_or_type_tsp(".ref", "&?"),
+  simple_expr_or_type_tsp(".refm", "&mut ?"),
+  expr_or_type_tsp(
+    ".ok",
+    "Ok(?)",
+    build_simple_replace_callback("Ok(%s)"),
+    result_type_callback
+  ),
+  expr_or_type_tsp(
+    ".err",
+    "Err(?)",
+    build_simple_replace_callback("Err(%s)"),
+    result_type_callback
+  ),
+  expr_or_type_tsp(
+    ".some",
+    "Some(?)",
+    build_simple_replace_callback("Some(%s)"),
+    build_simple_replace_callback("Option<%s>")
+  ),
 
   tsp.treesitter_postfix({
     trig = ".println",
