@@ -99,8 +99,8 @@ return {
   expr_or_type_tsp(".rw", "RwLock"),
   expr_or_type_tsp(".cell", "Cell"),
   expr_or_type_tsp(".refcell", "RefCell"),
-  expr_tsp(".ref", "&?"),
-  expr_tsp(".refm", "&mut ?"),
+  expr_or_type_tsp(".ref", "&?"),
+  expr_or_type_tsp(".refm", "&mut ?"),
   expr_tsp(".ok", "Ok(?)"),
   expr_tsp(".err", "Err(?)"),
   expr_tsp(".some", "Some(?)"),
@@ -120,6 +120,26 @@ return {
       return Utils.replace_all(
         parent.snippet.env.LS_TSMATCH,
         [[println!("{:?}", %s)]]
+      )
+    end, {}),
+  }),
+
+  tsp.treesitter_postfix({
+    trig = ".match",
+    name = [[(.match) match ?]],
+    dscr = [[Wrap expression with match ? block]],
+    wordTrig = false,
+    reparseBuffer = nil,
+    matchTSNode = {
+      query = expr_query,
+      query_lang = "rust",
+    },
+  }, {
+    f(function(_, parent)
+      return Utils.replace_all(
+        parent.snippet.env.LS_TSMATCH,
+        [[match %s {
+        }]]
       )
     end, {}),
   }),

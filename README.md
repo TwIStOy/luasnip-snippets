@@ -196,12 +196,13 @@ ls.setup({
 |   `.rw`    | Wraps with `RwLock::new(?)` if expr, `RwLock<?>` if type.   |   `expr_or_type`   |
 |  `.cell`   | Wraps with `Cell::new(?)` if expr, `Cell<?>` if type.       |   `expr_or_type`   |
 | `.refcell` | Wraps with `RefCell::new(?)` if expr, `RefCell<?>` if type. |   `expr_or_type`   |
-|   `.ref`   | Wraps with `&?`.                                            |       `expr`       |
-|  `.refm`   | Wraps with `&mut ?`.                                        |       `expr`       |
+|   `.ref`   | Wraps with `&?`.                                            |   `expr_or_type`   |
+|  `.refm`   | Wraps with `&mut ?`.                                        |   `expr_or_type`   |
 |   `.ok`    | Wraps with `Ok(?)`.                                         |       `expr`       |
 |   `.err`   | Wraps with `Err(?)`.                                        |       `expr`       |
 |  `.some`   | Wraps with `Some(?)`.                                       |       `expr`       |
 | `.println` | Wraps with `println!("{:?}", ?)`.                           |       `expr`       |
+|  `.match`  | Wraps with `match ? {}`.                                    |       `expr`       |
 
 </details>
 
