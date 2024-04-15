@@ -2,9 +2,17 @@
 ---@field name? string
 ---@field email? string
 
+---@class LSSnippets.Config.Snippet.Lua
+---@field vim_snippet? boolean
+---@field cond? fun():boolean
+
+---@class LSSnippets.Config.Snippet
+---@field lua LSSnippets.Config.Snippet.Lua
+
 ---@class LSSnippets.Config
 ---@field copyright_header? string
 ---@field user? LSSnippets.Config.User
+---@field snippet? LSSnippets.Config.Snippet
 local config = {}
 
 ---@param opts? LSSnippets.Config
@@ -29,7 +37,10 @@ local function get(key)
   return value
 end
 
-return {
+---@class luasnip-snippets.config
+local M = {
   setup = setup,
   get = get,
 }
+
+return M

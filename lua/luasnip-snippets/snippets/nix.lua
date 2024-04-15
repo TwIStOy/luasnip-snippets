@@ -1,6 +1,5 @@
 local ls = require("luasnip")
 local f = ls.function_node
-local t = ls.text_node
 local snippet = require("luasnip-snippets.nodes").construct_snippet
 local fmta = require("luasnip.extras.fmt").fmta
 local extras = require("luasnip.extras")

@@ -118,9 +118,12 @@ local function word_expand(word, expand, mode)
   }
 end
 
-return {
+---@class luasnip-snippets.nodes
+local M = {
   insert_node = insert_node,
   choice_node = choice_node,
   construct_snippet = construct_snippet,
   word_expand = word_expand,
 }
+
+return M

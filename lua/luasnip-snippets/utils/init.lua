@@ -1,3 +1,4 @@
+---@class luasnip-snippets.utils
 local M = {}
 
 ---Replace all occurences of %s in template with match.
@@ -36,6 +37,13 @@ function M.concat_snippets(base, snippets)
     vim.list_extend(ret, snippet_module)
   end
   return ret
+end
+
+function M.reverse_list(lst)
+  for i = 1, math.floor(#lst / 2) do
+    local j = #lst - i + 1
+    lst[i], lst[j] = lst[j], lst[i]
+  end
 end
 
 return M

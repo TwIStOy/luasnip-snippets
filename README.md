@@ -26,6 +26,24 @@ ls.setup({
 })
 ```
 
+# Configuration
+
+```lua
+---@type LSSnippets.Config
+{
+  user = {
+    -- user's name, used in todo-related snippets now
+    name = nil,
+  },
+  snippet = {
+    lua = {
+      -- enable neovim related snippets in lua
+      vim_snippet = false,
+    }
+  }
+}
+```
+
 ## Snippets
 
 <details>
@@ -44,12 +62,15 @@ ls.setup({
 <details>
 <summary>Lua</summary>
 
+Snippets with `*` are available only when `vim_snippet` is enabled.
+
 #### Normal Snippets
 
-| Trig  | Desc                                 | Context Required |
-| :---: | ------------------------------------ | :--------------: |
-| `fn`  | Expands to function definition.      |        No        |
-| `req` | Expands to `require(...)` statement. |        No        |
+|  Trig   | Desc                                       | Context Required |
+| :-----: | ------------------------------------------ | :--------------: |
+|  `fn`   | Expands to function definition.            |        No        |
+|  `req`  | Expands to `require(...)` statement.       |        No        |
+| `ifn`\* | Expand to `vim.F.if_nil(...)` expresstion. |        No        |
 
 #### Postfix Snippets
 
@@ -58,14 +79,21 @@ ls.setup({
   (function_call)
   (identifier)
   (expression_list)
+  (dot_index_expression)
+  (bracket_index_expression)
 ] @any_expr
+[
+  (dot_index_expression)
+  (bracket_index_expression)
+] @index_expr
 ```
 
-|   Trig    | Desc (placehoder: `?`)                   | Expr before cursor |
-| :-------: | ---------------------------------------- | :----------------: |
-| `.ipairs` | Expands to `ipairs(?)` for-loop.         |     `any_expr`     |
-| `.pairs`  | Expands to `pairs(?)` for-loop.          |     `any_expr`     |
-| `.isnil`  | Expands to `if ? == nil then` statement. |     `any_expr`     |
+|   Trig    | Desc (placehoder: `?`)                    | Expr before cursor |
+| :-------: | ----------------------------------------- | :----------------: |
+| `.ipairs` | Expands to `ipairs(?)` for-loop.          |     `any_expr`     |
+| `.pairs`  | Expands to `pairs(?)` for-loop.           |     `any_expr`     |
+| `.isnil`  | Expands to `if ? == nil then` statement.  |     `any_expr`     |
+| `.tget`\* | Expands to `vim.tbl_get(...)` expression. |    `index_expr`    |
 
 </details>
 

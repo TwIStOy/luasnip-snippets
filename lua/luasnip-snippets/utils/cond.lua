@@ -1,3 +1,4 @@
+---@class luasnip-snippets.utils.cond
 local M = {}
 
 ---@class LSSnippets.ConditionFuncObject
