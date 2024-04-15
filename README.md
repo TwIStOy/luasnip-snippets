@@ -1,9 +1,18 @@
-# LuaSnip Snippets
+<h1 align="center">LuaSnip Snippets</h1>
+
+<p align="center">
+    <a href="https://github.com/TwIStOy/luasnip-snippets/pulse">
+      <img src="https://img.shields.io/github/last-commit/TwIStOy/luasnip-snippets?style=for-the-badge&logo=github&color=7dc4e4&logoColor=D9E0EE&labelColor=302D41"/></a>
+    <a href="https://github.com/TwIStOy/luasnip-snippets/stargazers">
+      <img src="https://img.shields.io/github/stars/TwIStOy/luasnip-snippets?style=for-the-badge&logo=apachespark&color=eed49f&logoColor=D9E0EE&labelColor=302D41"/></a>
+    <a href="https://github.com/TwIStOy/luasnip-snippets">
+      <img alt="Repo Size" src="https://img.shields.io/github/repo-size/TwIStOy/luasnip-snippets?color=%23DDB6F2&label=SIZE&logo=codesandbox&style=for-the-badge&logoColor=D9E0EE&labelColor=302D41" /></a>
+</p>
 
 A collection of snippets for various programming language. Some snippets are
 highly inspired by Jetbrain's IDEs.
 
-## Installation
+## 📦 Installation
 
 ```lua
 {
@@ -26,7 +35,7 @@ ls.setup({
 })
 ```
 
-# Configuration
+# ⚙️ Configuration
 
 ```lua
 ---@type LSSnippets.Config
