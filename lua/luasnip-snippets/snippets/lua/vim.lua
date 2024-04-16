@@ -48,8 +48,12 @@ local function inject_matches(context, previous)
   local fields = {}
   local node = context.prefix_node
   while node ~= nil and index_expression_matcher[node:type()] == 1 do
-    fields[#fields + 1] =
-      context.ts_parser:get_node_text(node:field("field")[1])
+    local field = context.ts_parser:get_node_text(node:field("field")[1])
+    if node:type() == "dot_index_expression" then
+      fields[#fields + 1] = ('"%s"'):format(field)
+    else
+      fields[#fields + 1] = field
+    end
     node = node:field("table")[1]
   end
   fields[#fields + 1] = context.ts_parser:get_node_text(node)
