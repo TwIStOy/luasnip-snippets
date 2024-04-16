@@ -50,6 +50,7 @@ function M.setup(opts)
     "dart",
     "nix",
     "all",
+    "typescript",
   }
 end
 

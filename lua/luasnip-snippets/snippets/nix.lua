@@ -65,7 +65,7 @@ return {
       }
       ]],
       {
-        module = i(1, "module", { dscr = "Module name" }),
+        module = i(1, "module", { desc = "Module name" }),
         module_r = rep(1),
       }
     ),
