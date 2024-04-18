@@ -283,11 +283,17 @@ Snippets with `*` are available only when `vim_snippet` is enabled.
 ```scheme
 [
   (identifier)
-] @prefix
+] @identifier
+[
+((binding
+  expression: (_) @expr
+))
+] @binding
 ```
 
-| Trig  | Desc (placehoder: `?`)              | Expr before cursor |
-| :---: | ----------------------------------- | :----------------: |
-| `.on` | Expands to enable option statement. |     `any_expr`     |
+|   Trig   | Desc (placehoder: `?`)                  | Expr before cursor |
+| :------: | --------------------------------------- | :----------------: |
+|  `.on`   | Expands to enable option statement.     |    `identifier`    |
+| `.split` | Expands bindings to full attrset style. |     `binding`      |
 
 </details>
