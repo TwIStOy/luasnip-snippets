@@ -6,11 +6,23 @@
 ---@field vim_snippet? boolean
 ---@field cond? fun():boolean
 
+---@class LSSnippets.Config.Snippet.Cpp.QuickType
+---@field extra_trig? LSSnippets.Config.Snippet.Cpp.QuickType.Shortcut[]
+
+---@class LSSnippets.Config.Snippet.Cpp.QuickType.Shortcut
+---@field trig string One character trigger. Supports lowercase letters only.
+---@field params number Number of template parameters.
+---@field template string Template string.
+
+---@class LSSnippets.Config.Snippet.Cpp
+---@field quick_type? LSSnippets.Config.Snippet.Cpp.QuickType
+
 ---@alias LSSnippets.Config.Snippet.DisableSnippets string[]
 ---@alias LSSnippets.SupportLangs 'cpp'|'dart'|'lua'|'rust'|'nix'|'typescript'|'*'
 
 ---@class LSSnippets.Config.Snippet
----@field lua LSSnippets.Config.Snippet.Lua
+---@field lua? LSSnippets.Config.Snippet.Lua
+---@field cpp? LSSnippets.Config.Snippet.Cpp
 
 ---@class LSSnippets.Config
 ---@field copyright_header? string

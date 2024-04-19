@@ -37,6 +37,7 @@ ls.setup({
 
 # ⚙️ Configuration
 
+Config Example:
 ```lua
 ---@type LSSnippets.Config
 {
@@ -48,7 +49,19 @@ ls.setup({
     lua = {
       -- enable neovim related snippets in lua
       vim_snippet = false,
-    }
+    },
+    cpp = {
+      quick_type = {
+        -- use `std::unordered_map` instead of `absl::flat_hash_map`
+        extra_trig = {
+          { trig = 'm', params = 2, template = 'std::unordered_map<%s, %s>' }
+        }
+      },
+    },
+  },
+  disable_auto_expansion = {
+    -- disable these snippets' auto expansion
+    cpp = { "i32", "i64" },
   }
 }
 ```
@@ -123,27 +136,27 @@ Snippets with `*` are available only when `vim_snippet` is enabled.
 
 #### Auto-snippets
 
-|   Trig   | Desc                                                      |       Context Required        |
-| :------: | --------------------------------------------------------- | :---------------------------: |
-| `ctor!`  | Expands to default constructor.                           |           In Class            |
-| `dtor!`  | Expands to default destructor.                            |           In Class            |
-|  `cc!`   | Expands to default copy constructor.                      |           In Class            |
-|  `mv!`   | Expands to default move constructor.                      |           In Class            |
-|  `ncc!`  | Expands to delete copy constructor.                       |           In Class            |
-|  `nmv!`  | Expands to delete move constructor.                       |           In Class            |
-|  `ncm!`  | Expands to delete copy and move constructor.              |           In Class            |
-|  `once`  | Expands to `pragma once` marker at the front of the file. | All lines before are comments |
-|   `u8`   | Expands to `uint8_t`.                                     |              No               |
-|  `u16`   | Expands to `uint16_t`.                                    |              No               |
-|  `u32`   | Expands to `uint32_t`.                                    |              No               |
-|  `u64`   | Expands to `uint64_t`.                                    |              No               |
-|   `i8`   | Expands to `int8_t`.                                      |              No               |
-|  `i16`   | Expands to `int16_t`.                                     |              No               |
-|  `i32`   | Expands to `int32_t`.                                     |              No               |
-|  `i64`   | Expands to `int64_t`.                                     |              No               |
-| `t(%s)!` | Evaluates (QET) marker, and expand to typename.           |              No               |
-|   `#"`   | Expands to include statement with quotes. `#include ""`.  |              No               |
-|   `#<`   | Expands to include statement with `<>`. `#include <>`.    |              No               |
+|   Trig   | Desc                                                      |       Context Required        | Could Disable AutoExpansion |
+| :------: | --------------------------------------------------------- | :---------------------------: | :-------------------------: |
+| `ctor!`  | Expands to default constructor.                           |           In Class            |             No              |
+| `dtor!`  | Expands to default destructor.                            |           In Class            |             No              |
+|  `cc!`   | Expands to default copy constructor.                      |           In Class            |             No              |
+|  `mv!`   | Expands to default move constructor.                      |           In Class            |             No              |
+|  `ncc!`  | Expands to delete copy constructor.                       |           In Class            |             No              |
+|  `nmv!`  | Expands to delete move constructor.                       |           In Class            |             No              |
+|  `ncm!`  | Expands to delete copy and move constructor.              |           In Class            |             No              |
+|  `once`  | Expands to `pragma once` marker at the front of the file. | All lines before are comments |             Yes             |
+|   `u8`   | Expands to `uint8_t`.                                     |              No               |             Yes             |
+|  `u16`   | Expands to `uint16_t`.                                    |              No               |             Yes             |
+|  `u32`   | Expands to `uint32_t`.                                    |              No               |             Yes             |
+|  `u64`   | Expands to `uint64_t`.                                    |              No               |             Yes             |
+|   `i8`   | Expands to `int8_t`.                                      |              No               |             Yes             |
+|  `i16`   | Expands to `int16_t`.                                     |              No               |             Yes             |
+|  `i32`   | Expands to `int32_t`.                                     |              No               |             Yes             |
+|  `i64`   | Expands to `int64_t`.                                     |              No               |             Yes             |
+| `t(%s)!` | Evaluates (QET) marker, and expand to typename.           |              No               |             No              |
+|   `#"`   | Expands to include statement with quotes. `#include ""`.  |              No               |             Yes             |
+|   `#<`   | Expands to include statement with `<>`. `#include <>`.    |              No               |             Yes             |
 
 ##### Quick Expand Type markers
 
@@ -155,6 +168,13 @@ Snippets with `*` are available only when `vim_snippet` is enabled.
 |  `s`   | `std::string`         |     0     |
 |  `m`   | `absl::flat_hash_map` |     2     |
 |  `t`   | `std::tuple`          |    `*`    |
+
+Example:
+
+```
+tvi! -> std::vector<int32_t>
+tmss! -> absl::flat_hash_map<std::string, std::string>
+```
 
 #### Postfix Snippets
 

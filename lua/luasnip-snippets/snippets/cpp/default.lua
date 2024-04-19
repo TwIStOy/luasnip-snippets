@@ -98,15 +98,29 @@ local all_lines_before_are_all_comments =
     "^%s*$",
   }
 
+local default_quick_markers = {
+  v = { params = 1, template = "std::vector<%s>" },
+  i = { params = 0, template = "int32_t" },
+  s = { params = 0, template = "std::string" },
+  u = { params = 0, template = "uint32_t" },
+  m = { params = 2, template = "absl::flat_hash_map<%s, %s>" },
+  t = { params = -1, template = "std::tuple<%s>" },
+}
+
 ---@param shortcut string
 ---@return string?
 local function quick_type(shortcut)
-  --   v = std::vector, 1
-  --   i = int32_t, 0
-  --   s = std::string, 0
-  --   u = uint32_t, 0
-  --   m = absl::flat_hash_map, 2
-  --   t = std::tuple, *
+  ---@type luasnip-snippets.config
+  local Config = require("luasnip-snippets.config")
+  local quick_markers = Config.get("snippet.cpp.quick_type.extra_trig") or {}
+  local markers = vim.deepcopy(default_quick_markers)
+  for _, marker in ipairs(quick_markers) do
+    markers[marker.trig] = {
+      params = marker.params,
+      template = marker.template,
+    }
+  end
+
   ---@param s string
   ---@return string?, string?
   local function expect_typename(s)
@@ -114,52 +128,51 @@ local function quick_type(shortcut)
     if first == nil then
       return nil, nil
     end
-    if first == "v" then
-      local typename, sub_rest = expect_typename(rest)
-      if typename == nil then
-        return "std::vector", rest
-      else
-        return ("std::vector<%s>"):format(typename), sub_rest
-      end
-    elseif first == "i" then
-      return "int32_t", rest
-    elseif first == "s" then
-      return "std::string", rest
-    elseif first == "u" then
-      return "uint32_t", rest
-    elseif first == "m" then
-      local key_type, key_rest = expect_typename(rest)
-      if key_type == nil or key_rest == nil then
-        return "absl::flat_hash_map", rest
-      end
-      local value_type, value_rest = expect_typename(key_rest)
-      if value_type == nil or value_rest == nil then
-        return "absl::flat_hash_map", rest
-      end
-      return ("absl::flat_hash_map<%s, %s>"):format(key_type, value_type),
-        value_rest
-    elseif first == "t" then
+
+    local trig = markers[first]
+    if trig == nil then
+      return nil, nil
+    end
+
+    if trig.params == -1 then
       local parameters = {}
       while #rest > 0 do
         local typename, sub_rest = expect_typename(rest)
         if typename == nil or sub_rest == nil then
-          if #parameters == 0 then
-            return "std::tuple", rest
-          end
-          return ("std::tuple<%s>"):format(table.concat(parameters, ", ")), rest
+          break
         end
         parameters[#parameters + 1] = typename
         rest = sub_rest
       end
-      return ("std::tuple<%s>"):format(table.concat(parameters, ", ")), rest
+      return (trig.template):format(table.concat(parameters, ", ")), rest
     end
+
+    if trig.params == 0 then
+      return trig.template, rest
+    end
+
+    local parameters = {}
+    for _ = 1, trig.params do
+      local typename, sub_rest = expect_typename(rest)
+      if typename == nil or sub_rest == nil then
+        return nil, rest
+      end
+      parameters[#parameters + 1] = typename
+      rest = sub_rest
+    end
+
+    return string.format(trig.template, unpack(parameters)), rest
   end
 
   local result, rest = expect_typename(shortcut)
   if rest and #rest > 0 then
     print(("After QET eval, rest not empty: %s"):format(rest))
   end
-  return result
+  if result == nil then
+    return shortcut
+  else
+    return result
+  end
 end
 
 return {
