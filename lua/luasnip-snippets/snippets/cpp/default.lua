@@ -1,7 +1,9 @@
 local ls = require("luasnip")
-local snippet = require("luasnip-snippets.nodes").construct_snippet
-local i = require("luasnip-snippets.nodes").insert_node
-local c = require("luasnip-snippets.nodes").choice_node
+---@type luasnip-snippets.nodes
+local Nodes = require("luasnip-snippets.nodes")
+local snippet = Nodes.construct_snippet
+local i = Nodes.insert_node
+local c = Nodes.choice_node
 local fmta = require("luasnip.extras.fmt").fmta
 local f = ls.function_node
 local t = ls.text_node
@@ -58,6 +60,7 @@ local function int_type_snippet(bits, unsigned)
     name = ("(%s) %s"):format(trig, expand),
     desc = ("Expands to %s"):format(expand),
     mode = "wA",
+    lang = "cpp",
     nodes = {
       t(expand),
     },
@@ -171,6 +174,7 @@ return {
     name = "(once) #Progma once",
     dscr = "Expands to progma once with comments",
     mode = "bwA",
+    lang = "cpp",
     cond = all_lines_before_are_all_comments,
     nodes = {
       t { "#pragma once  // NOLINT(build/header_guard)", "" },
@@ -183,6 +187,7 @@ return {
     name = 'include ""',
     dscr = "#include with quotes",
     mode = "bA",
+    lang = "cpp",
     nodes = {
       t('#include "'),
       i(1, "header"),
@@ -194,6 +199,7 @@ return {
     name = "include <>",
     dscr = "#include with <>",
     mode = "bA",
+    lang = "cpp",
     nodes = {
       t("#include <"),
       i(1, "header"),

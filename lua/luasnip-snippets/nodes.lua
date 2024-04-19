@@ -55,6 +55,7 @@ end
 ---@field hidden boolean? Hidden from completion, If "h" in mode, defaults to true.
 ---@field nodes LuaSnip.Node[] Expansion nodes
 ---@field priority number? Snippet priority
+---@field lang string? Language of the snippet
 ---@field cond LSSnippets.ConditionObject? Condition object, including condition and show_condition
 ---@field resolveExpandParams nil|fun(snippet: LuaSnip.Snippet, line_to_cursor: string, matched_trigger: string, captures: table): table Function to decide whether the snippet can be expanded or not.
 ---@field opts table? Other options
@@ -63,6 +64,8 @@ end
 local function construct_snippet(opts)
   local CommonCond = require("luasnip-snippets.utils.common_cond")
   local ls = require("luasnip")
+  ---@type luasnip-snippets.config
+  local Config = require("luasnip-snippets.config")
 
   local trig = opts[1]
   local name = vim.F.if_nil(opts.name, trig)
@@ -75,6 +78,13 @@ local function construct_snippet(opts)
   end
   local hidden = vim.F.if_nil(opts.hidden, mode:match("h") ~= nil)
   local snippetType = mode:match("A") ~= nil and "autosnippet" or "snippet"
+  if
+    snippetType == "autosnippet"
+    and opts.lang ~= nil
+    and Config.auto_expansion_disabled(opts.lang, trig)
+  then
+    snippetType = "snippet"
+  end
   local nodes = opts.nodes
   local priority = opts.priority or nil
   local cond = opts.cond or nil

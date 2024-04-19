@@ -6,6 +6,9 @@
 ---@field vim_snippet? boolean
 ---@field cond? fun():boolean
 
+---@alias LSSnippets.Config.Snippet.DisableSnippets string[]
+---@alias LSSnippets.SupportLangs 'cpp'|'dart'|'lua'|'rust'|'nix'|'typescript'|'*'
+
 ---@class LSSnippets.Config.Snippet
 ---@field lua LSSnippets.Config.Snippet.Lua
 
@@ -13,6 +16,7 @@
 ---@field copyright_header? string
 ---@field user? LSSnippets.Config.User
 ---@field snippet? LSSnippets.Config.Snippet
+---@field disable_auto_expansion? table<LSSnippets.SupportLangs, LSSnippets.Config.Snippet.DisableSnippets>
 local config = {}
 
 ---@param opts? LSSnippets.Config
@@ -37,10 +41,18 @@ local function get(key)
   return value
 end
 
+---return bool
+local function auto_expansion_disabled(lang, trig)
+  local disabled_trigs =
+    vim.F.if_nil(vim.tbl_get(config, "disable_auto_expansion", lang), {})
+  return vim.list_contains(disabled_trigs, trig)
+end
+
 ---@class luasnip-snippets.config
 local M = {
   setup = setup,
   get = get,
+  auto_expansion_disabled = auto_expansion_disabled,
 }
 
 return M
