@@ -4,6 +4,7 @@ local i = require("luasnip-snippets.nodes").insert_node
 local ls = require("luasnip")
 local f = ls.function_node
 local tsp = require("luasnip.extras.treesitter_postfix")
+local rep = require("luasnip.extras").rep
 
 local function last_lua_module_section(args)
   local text = args[1][1] or ""
@@ -60,6 +61,37 @@ return {
       ls.d(2, last_lua_module_section, { 1 }),
       i(1, "module"),
     }),
+  },
+
+  snippet {
+    '#i',
+    name = "require(...)",
+    dscr = "Expands to require statement with type annotation",
+    mode = "bwA",
+    nodes = fmt(
+      [[
+      ---@type {}
+      local {} = require("{}")
+      ]],
+      {
+        rep(1),
+        f(function(args)
+          local module_name = args[1][1]
+          local parts = vim.split(module_name, ".", {
+            plain = true,
+            trimempty = true,
+          })
+          module_name = parts[#parts]
+          parts = vim.split(module_name, "/", {
+            plain = true,
+            trimempty = true,
+          })
+          module_name = parts[#parts]
+          return module_name:gsub("^%l", string.upper)
+        end, { 1 }),
+        i(1, "module"),
+      }
+    ),
   },
 
   tsp.treesitter_postfix(
