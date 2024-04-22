@@ -38,6 +38,7 @@ ls.setup({
 # ⚙️ Configuration
 
 Config Example:
+
 ```lua
 ---@type LSSnippets.Config
 {
@@ -116,6 +117,12 @@ Snippets with `*` are available only when `vim_snippet` is enabled.
 | `.pairs`  | Expands to `pairs(?)` for-loop.           |     `any_expr`     |
 | `.isnil`  | Expands to `if ? == nil then` statement.  |     `any_expr`     |
 | `.tget`\* | Expands to `vim.tbl_get(...)` expression. |    `index_expr`    |
+
+#### Auto-snippets
+
+| Trig | Desc                                                   | Context Required | Could Disable AutoExpansion |
+| :--: | ------------------------------------------------------ | :--------------: | :-------------------------: |
+| `#i` | Expands to `require(...)` statement with type hinting. |        No        |             No              |
 
 </details>
 
