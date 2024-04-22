@@ -55,9 +55,11 @@ end
 
 ---return bool
 local function auto_expansion_disabled(lang, trig)
+  ---@type luasnip-snippets.utils.tbl
+  local Tbl = require("luasnip-snippets.utils.tbl")
   local disabled_trigs =
     vim.F.if_nil(vim.tbl_get(config, "disable_auto_expansion", lang), {})
-  return vim.list_contains(disabled_trigs, trig)
+  return Tbl.list_contains(disabled_trigs, trig)
 end
 
 ---@class luasnip-snippets.config
