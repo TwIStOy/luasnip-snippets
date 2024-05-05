@@ -63,6 +63,10 @@ Config Example:
   disable_auto_expansion = {
     -- disable these snippets' auto expansion
     cpp = { "i32", "i64" },
+  },
+  disable_langs = {
+    -- disable these language's snippets
+    -- "dart"
   }
 }
 ```
