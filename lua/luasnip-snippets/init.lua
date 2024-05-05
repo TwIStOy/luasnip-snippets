@@ -43,7 +43,9 @@ function M.setup(opts)
   Config.setup(opts)
 
   -- register snippets
-  load_and_add_snippet {
+  load_and_add_snippet(vim.tbl_filter(function(l)
+    return not vim.tbl_contains(Config.get("disable_langs") or {}, l)
+  end, {
     "cpp",
     "rust",
     "lua",
@@ -51,7 +53,7 @@ function M.setup(opts)
     "nix",
     "all",
     "typescript",
-  }
+  }))
 end
 
 return M

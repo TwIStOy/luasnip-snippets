@@ -29,6 +29,7 @@
 ---@field user? LSSnippets.Config.User
 ---@field snippet? LSSnippets.Config.Snippet
 ---@field disable_auto_expansion? table<LSSnippets.SupportLangs, LSSnippets.Config.Snippet.DisableSnippets>
+---@field disable_langs? LSSnippets.SupportLangs[]
 local config = {}
 
 ---@param opts? LSSnippets.Config
