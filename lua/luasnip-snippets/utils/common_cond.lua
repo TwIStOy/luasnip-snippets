@@ -15,6 +15,9 @@ local function line_begin_show_maker(trig)
     local _, col = unpack(vim.api.nvim_win_get_cursor(0))
     local line = vim.api.nvim_get_current_line()
     local trigger = line:sub(1, col):match("%S+$")
+    if trigger == nil then
+      return false
+    end
     if #trigger > #trig then
       return false
     end
