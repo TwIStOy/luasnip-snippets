@@ -6,6 +6,7 @@ local Utils = require("luasnip-snippets.utils")
 local expr_query = [[
 [
   (struct_expression)
+  (unit_expression)
   (call_expression)
   (identifier)
   (field_expression)
@@ -18,6 +19,7 @@ local expr_or_type_query = [[
 [
   (struct_expression)
   (call_expression)
+  (unit_expression)
   (identifier)
   (field_expression)
   (integer_literal)
