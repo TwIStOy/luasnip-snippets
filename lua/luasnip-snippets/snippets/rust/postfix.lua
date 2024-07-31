@@ -29,6 +29,7 @@ local expr_or_type_query = [[
   (generic_type)
   (scoped_type_identifier)
   (reference_type)
+  (primitive_type)
 ] @prefix
 ]]
 
