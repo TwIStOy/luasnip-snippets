@@ -59,12 +59,18 @@ return {
     "?.begin(), ?.end()",
     "Completes an expr with both begin() and end()"
   ),
+  expr_tsp(
+    ".cbe",
+    "?.cbegin(), ?.cend()",
+    "Completes an expr with both cbegin() and cend()"
+  ),
   expr_tsp(".mv", "std::move(?)"),
   expr_tsp(".fwd", "std::forward<decltype(?)>(?)"),
   expr_tsp(".val", "std::declval<?>()"),
   expr_tsp(".dt", "decltype(?)"),
   expr_tsp(".uu", "(void)?"),
   expr_tsp(".single", "ranges::views::single(?)"),
+  expr_tsp(".await", "co_await ?"),
 
   tsp.treesitter_postfix({
     trig = ".ts",

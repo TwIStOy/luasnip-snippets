@@ -208,6 +208,7 @@ tmss! -> absl::flat_hash_map<std::string, std::string>
 |   Trig    | Desc (placehoder: `?`)                                               | Expr before cursor |
 | :-------: | -------------------------------------------------------------------- | :----------------: |
 |   `.be`   | Expands to begin and end exprs.                                      |     `any_expr`     |
+|  `.cbe`   | Expands to cbegin and cend exprs.                                    |     `any_expr`     |
 |   `.mv`   | Wraps with `std::move(?)`.                                           |     `any_expr`     |
 |  `.fwd`   | Wraps with `std::forward<decltype(?)>(?)`.                           |     `any_expr`     |
 |  `.val`   | Wraps with `std::declval<?>()`.                                      |     `any_expr`     |
@@ -216,6 +217,7 @@ tmss! -> absl::flat_hash_map<std::string, std::string>
 |   `.ts`   | Switches indent's coding style between `CamelCase` and `snake_case`. |      `indent`      |
 |   `.sc`   | Wraps with `static_cast<>(?)`.                                       |     `any_expr`     |
 | `.single` | Wraps with `ranges::views::single(?)`.                               |     `any_expr`     |
+| `.await`  | Expands to `co_await ?`.                                              |     `any_expr`     |
 |   `.in`   | Expands to `if (...find)` statements.                                |     `any_expr`     |
 
 </details>
