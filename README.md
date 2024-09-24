@@ -59,6 +59,10 @@ Config Example:
         }
       },
     },
+    rust = {
+      -- add `#[rstest]` to test function's attribute choices, if the test mod has already use `rstest` directly
+      rstest_support = false,
+    },
   },
   disable_auto_expansion = {
     -- disable these snippets' auto expansion
@@ -281,12 +285,12 @@ tmss! -> absl::flat_hash_map<std::string, std::string>
 
 #### Normal Snippets
 
-| Trig  | Desc                                                                 | Context Required |
-| :---: | -------------------------------------------------------------------- | :--------------: |
-| `fn`  | Expands to function definition.                                      |        No        |
-| `wfn` | Expands to function definition returns a widget.                     |        No        |
-| `afn` | Expands to an async function definition.                             |        No        |
-| `tfn` | Expands to a test function. `#[test]` or `#[tokio::test]` supported. |        No        |
+| Trig  | Desc                                                                                                                                         | Context Required |
+| :---: | -------------------------------------------------------------------------------------------------------------------------------------------- | :--------------: |
+| `fn`  | Expands to function definition.                                                                                                              |        No        |
+| `wfn` | Expands to function definition returns a widget.                                                                                             |        No        |
+| `afn` | Expands to an async function definition.                                                                                                     |        No        |
+| `tfn` | Expands to a test function. `#[test]` or `#[tokio::test]` supported. With `snippet.rust.rstest_support` enabled, `#[rstest]` also supported. |        No        |
 
 #### Auto-snippets
 
