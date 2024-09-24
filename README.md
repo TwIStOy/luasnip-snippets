@@ -231,13 +231,15 @@ tmss! -> absl::flat_hash_map<std::string, std::string>
 
 #### Normal Snippets
 
-| Trig | Desc                                                                                               | Context Required |
-| :--: | -------------------------------------------------------------------------------------------------- | :--------------: |
-| `fn` | Expands to lambda function in argument list or function body, otherwise expand to normal function. |        No        |
-| `pc` | Expands to `pub(crate)`.                                                                           |        No        |
-| `ps` | Expands to `pub(super)`.                                                                           |        No        |
-| `ii` | Expands to `#[inline]`.                                                                            |        No        |
-| `ia` | Expands to `#[inline(always)]`.                                                                    |        No        |
+| Trig  | Desc                                                                                                                                         | Context Required |
+| :---: | -------------------------------------------------------------------------------------------------------------------------------------------- | :--------------: |
+| `fn`  | Expands to lambda function in argument list or function body, otherwise expand to normal function.                                           |        No        |
+| `pc`  | Expands to `pub(crate)`.                                                                                                                     |        No        |
+| `ps`  | Expands to `pub(super)`.                                                                                                                     |        No        |
+| `ii`  | Expands to `#[inline]`.                                                                                                                      |        No        |
+| `ia`  | Expands to `#[inline(always)]`.                                                                                                              |        No        |
+| `tfn` | Expands to a test function. `#[test]` or `#[tokio::test]` supported. With `snippet.rust.rstest_support` enabled, `#[rstest]` also supported. |        No        |
+| `pm`  | Expands to a public method definition.                                                                                                       |  In impl block   |
 
 #### Postfix Snippets
 
@@ -285,12 +287,11 @@ tmss! -> absl::flat_hash_map<std::string, std::string>
 
 #### Normal Snippets
 
-| Trig  | Desc                                                                                                                                         | Context Required |
-| :---: | -------------------------------------------------------------------------------------------------------------------------------------------- | :--------------: |
-| `fn`  | Expands to function definition.                                                                                                              |        No        |
-| `wfn` | Expands to function definition returns a widget.                                                                                             |        No        |
-| `afn` | Expands to an async function definition.                                                                                                     |        No        |
-| `tfn` | Expands to a test function. `#[test]` or `#[tokio::test]` supported. With `snippet.rust.rstest_support` enabled, `#[rstest]` also supported. |        No        |
+| Trig  | Desc                                             | Context Required |
+| :---: | ------------------------------------------------ | :--------------: |
+| `fn`  | Expands to function definition.                  |        No        |
+| `wfn` | Expands to function definition returns a widget. |        No        |
+| `afn` | Expands to an async function definition.         |        No        |
 
 #### Auto-snippets
 

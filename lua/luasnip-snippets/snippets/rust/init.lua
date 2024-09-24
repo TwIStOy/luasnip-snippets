@@ -6,6 +6,7 @@ local function setup()
     "postfix",
     "lambda_fn",
     "test_fn",
+    "impl_block",
   })
 end
 
