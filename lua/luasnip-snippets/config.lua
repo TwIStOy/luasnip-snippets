@@ -17,12 +17,16 @@
 ---@class LSSnippets.Config.Snippet.Cpp
 ---@field quick_type? LSSnippets.Config.Snippet.Cpp.QuickType
 
+---@class LSSnippets.Config.Snippet.Rust
+---@field rstest_support? boolean
+
 ---@alias LSSnippets.Config.Snippet.DisableSnippets string[]
 ---@alias LSSnippets.SupportLangs 'cpp'|'dart'|'lua'|'rust'|'nix'|'typescript'|'*'
 
 ---@class LSSnippets.Config.Snippet
 ---@field lua? LSSnippets.Config.Snippet.Lua
 ---@field cpp? LSSnippets.Config.Snippet.Cpp
+---@field rust? LSSnippets.Config.Snippet.Rust
 
 ---@class LSSnippets.Config
 ---@field copyright_header? string
@@ -35,7 +39,7 @@ local config = {}
 ---@param opts? LSSnippets.Config
 local function setup(opts)
   opts = opts or {}
-  config = vim.tbl_extend("force", config, opts)
+  config = vim.tbl_deep_extend("force", config, opts)
 end
 
 ---@return any
