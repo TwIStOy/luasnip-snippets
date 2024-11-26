@@ -44,7 +44,7 @@ function M.make_type_matcher(types)
   end
 
   if type(types) == "table" then
-    if vim.tbl_islist(types) then
+    if (vim.islist or vim.tbl_islist)(types) then
       local new_types = {}
       for _, v in ipairs(types) do
         new_types[v] = 1
