@@ -220,6 +220,7 @@ tmss! -> absl::flat_hash_map<std::string, std::string>
 |   `.uu`   | Wraps with `(void)?`.                                                |     `any_expr`     |
 |   `.ts`   | Switches indent's coding style between `CamelCase` and `snake_case`. |      `indent`      |
 |   `.sc`   | Wraps with `static_cast<>(?)`.                                       |     `any_expr`     |
+|   `.rc`   | Wraps with `reinterpret_cast<>(?)`.                                       |     `any_expr`     |
 | `.single` | Wraps with `ranges::views::single(?)`.                               |     `any_expr`     |
 | `.await`  | Expands to `co_await ?`.                                             |     `any_expr`     |
 |   `.in`   | Expands to `if (...find)` statements.                                |     `any_expr`     |

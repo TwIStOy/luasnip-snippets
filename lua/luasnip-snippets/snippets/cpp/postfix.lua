@@ -133,6 +133,32 @@ return {
 
   tsp.treesitter_postfix(
     {
+      trig = ".rc",
+      name = "(.rc) reinterpret_cast<TYPE>(?)",
+      dscr = "Wraps an expression with reinterpret_cast<TYPE>(?)",
+      wordTrig = false,
+      reparseBuffer = "live",
+      matchTSNode = {
+        query = expr_query,
+        query_lang = "cpp",
+      },
+    },
+    fmt(
+      [[
+      reinterpret_cast<{body}>({expr}){end}
+      ]],
+      {
+        body = i(1),
+        expr = f(function(_, parent)
+          return Utils.replace_all(parent.snippet.env.LS_TSMATCH, "%s")
+        end, {}),
+        ["end"] = i(0),
+      }
+    )
+  ),
+
+  tsp.treesitter_postfix(
+    {
       trig = ".in",
       name = "(.in) if (...find)",
       dscr = "Expands to an if-expr to find an element in map-like object",
