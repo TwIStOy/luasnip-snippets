@@ -56,7 +56,9 @@ Config Example:
         -- use `std::unordered_map` instead of `absl::flat_hash_map`
         extra_trig = {
           { trig = 'm', params = 2, template = 'std::unordered_map<%s, %s>' }
-        }
+        },
+        -- enable qt-related snippets
+        qt = true,
       },
     },
     rust = {
@@ -139,39 +141,41 @@ Snippets with `*` are available only when `vim_snippet` is enabled.
 
 #### Normal Snippets
 
-|    Trig     | Desc                                                                                               | Context Required |
-| :---------: | -------------------------------------------------------------------------------------------------- | :--------------: |
-|    `fn`     | Expands to lambda function in argument list or function body, otherwise expand to normal function. |        No        |
-|  `\|trans`  | Expands to ranges::views::transform pipe.                                                          |        No        |
-| `\|filter`  | Expands to ranges::views::filter pipe.                                                             |        No        |
-|    `cpo`    | Expands to customize point object.                                                                 |        No        |
-| `ns%s(%S+)` | Expands to namespace block (including comments).                                                   |        No        |
-|    `itf`    | Expands to a struct with default virtual destruction.                                              |        No        |
-|    `pvf`    | Expands to a pure virtual function declaration.                                                    |        No        |
+|    Trig     | Desc                                                                                               | Context Required | Qt  |
+| :---------: | -------------------------------------------------------------------------------------------------- | :--------------: | :-: |
+|    `fn`     | Expands to lambda function in argument list or function body, otherwise expand to normal function. |        No        |     |
+|  `\|trans`  | Expands to ranges::views::transform pipe.                                                          |        No        |     |
+| `\|filter`  | Expands to ranges::views::filter pipe.                                                             |        No        |     |
+|    `cpo`    | Expands to customize point object.                                                                 |        No        |     |
+| `ns%s(%S+)` | Expands to namespace block (including comments).                                                   |        No        |     |
+|    `itf`    | Expands to a struct with default virtual destruction.                                              |        No        |     |
+|    `pvf`    | Expands to a pure virtual function declaration.                                                    |        No        |     |
+|   `qcls`    | Expands to a class inherts from QObject.                                                           |        No        | Yes |
 
 #### Auto-snippets
 
-|   Trig   | Desc                                                      |       Context Required        | Could Disable AutoExpansion |
-| :------: | --------------------------------------------------------- | :---------------------------: | :-------------------------: |
-| `ctor!`  | Expands to default constructor.                           |           In Class            |             No              |
-| `dtor!`  | Expands to default destructor.                            |           In Class            |             No              |
-|  `cc!`   | Expands to default copy constructor.                      |           In Class            |             No              |
-|  `mv!`   | Expands to default move constructor.                      |           In Class            |             No              |
-|  `ncc!`  | Expands to delete copy constructor.                       |           In Class            |             No              |
-|  `nmv!`  | Expands to delete move constructor.                       |           In Class            |             No              |
-|  `ncm!`  | Expands to delete copy and move constructor.              |           In Class            |             No              |
-|  `once`  | Expands to `pragma once` marker at the front of the file. | All lines before are comments |             Yes             |
-|   `u8`   | Expands to `uint8_t`.                                     |              No               |             Yes             |
-|  `u16`   | Expands to `uint16_t`.                                    |              No               |             Yes             |
-|  `u32`   | Expands to `uint32_t`.                                    |              No               |             Yes             |
-|  `u64`   | Expands to `uint64_t`.                                    |              No               |             Yes             |
-|   `i8`   | Expands to `int8_t`.                                      |              No               |             Yes             |
-|  `i16`   | Expands to `int16_t`.                                     |              No               |             Yes             |
-|  `i32`   | Expands to `int32_t`.                                     |              No               |             Yes             |
-|  `i64`   | Expands to `int64_t`.                                     |              No               |             Yes             |
-| `t(%s)!` | Evaluates (QET) marker, and expand to typename.           |              No               |             No              |
-|   `#"`   | Expands to include statement with quotes. `#include ""`.  |              No               |             Yes             |
-|   `#<`   | Expands to include statement with `<>`. `#include <>`.    |              No               |             Yes             |
+|   Trig   | Desc                                                      |       Context Required        | Could Disable AutoExpansion | Qt  |
+| :------: | --------------------------------------------------------- | :---------------------------: | :-------------------------: | :-: |
+| `ctor!`  | Expands to default constructor.                           |           In Class            |             No              |     |
+| `dtor!`  | Expands to default destructor.                            |           In Class            |             No              |     |
+|  `cc!`   | Expands to default copy constructor.                      |           In Class            |             No              |     |
+|  `mv!`   | Expands to default move constructor.                      |           In Class            |             No              |     |
+|  `ncc!`  | Expands to delete copy constructor.                       |           In Class            |             No              |     |
+|  `nmv!`  | Expands to delete move constructor.                       |           In Class            |             No              |     |
+|  `ncm!`  | Expands to delete copy and move constructor.              |           In Class            |             No              |     |
+|  `once`  | Expands to `pragma once` marker at the front of the file. | All lines before are comments |             Yes             |     |
+|   `u8`   | Expands to `uint8_t`.                                     |              No               |             Yes             |     |
+|  `u16`   | Expands to `uint16_t`.                                    |              No               |             Yes             |     |
+|  `u32`   | Expands to `uint32_t`.                                    |              No               |             Yes             |     |
+|  `u64`   | Expands to `uint64_t`.                                    |              No               |             Yes             |     |
+|   `i8`   | Expands to `int8_t`.                                      |              No               |             Yes             |     |
+|  `i16`   | Expands to `int16_t`.                                     |              No               |             Yes             |     |
+|  `i32`   | Expands to `int32_t`.                                     |              No               |             Yes             |     |
+|  `i64`   | Expands to `int64_t`.                                     |              No               |             Yes             |     |
+| `t(%s)!` | Evaluates (QET) marker, and expand to typename.           |              No               |             No              |     |
+|   `#"`   | Expands to include statement with quotes. `#include ""`.  |              No               |             Yes             |     |
+|   `#<`   | Expands to include statement with `<>`. `#include <>`.    |              No               |             Yes             |     |
+|   `#q`   | Expands to include qt generated moc file.                 |              No               |             Yes             | Yes |
 
 ##### Quick Expand Type markers
 
@@ -220,7 +224,7 @@ tmss! -> absl::flat_hash_map<std::string, std::string>
 |   `.uu`   | Wraps with `(void)?`.                                                |     `any_expr`     |
 |   `.ts`   | Switches indent's coding style between `CamelCase` and `snake_case`. |      `indent`      |
 |   `.sc`   | Wraps with `static_cast<>(?)`.                                       |     `any_expr`     |
-|   `.rc`   | Wraps with `reinterpret_cast<>(?)`.                                       |     `any_expr`     |
+|   `.rc`   | Wraps with `reinterpret_cast<>(?)`.                                  |     `any_expr`     |
 | `.single` | Wraps with `ranges::views::single(?)`.                               |     `any_expr`     |
 | `.await`  | Expands to `co_await ?`.                                             |     `any_expr`     |
 |   `.in`   | Expands to `if (...find)` statements.                                |     `any_expr`     |

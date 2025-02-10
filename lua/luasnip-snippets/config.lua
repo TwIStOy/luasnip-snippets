@@ -16,6 +16,7 @@
 
 ---@class LSSnippets.Config.Snippet.Cpp
 ---@field quick_type? LSSnippets.Config.Snippet.Cpp.QuickType
+---@field qt? boolean Enable Qt related snippets.
 
 ---@class LSSnippets.Config.Snippet.Rust
 ---@field rstest_support? boolean
