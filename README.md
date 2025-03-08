@@ -153,10 +153,11 @@ Snippets with `*` are available only when `vim_snippet` is enabled.
 |    `itf`    | Expands to a struct with default virtual destruction.                                              |         No          |     |
 |    `pvf`    | Expands to a pure virtual function declaration.                                                    |         No          |     |
 |   `qcls`    | Expands to a class inherts from QObject.                                                           |         No          | Yes |
-|    `#if`    | Expands to `#if` statement.                                                                        | After cut selection | No  |
-|    `if`     | Expands to `if` statement.                                                                         | After cut selection | No  |
-|    `do`     | Expands to `do ... while (0)` statement.                                                           | After cut selection | No  |
-|   `while`   | Expands to `while` statement.                                                                      | After cut selection | No  |
+|    `#if`    | Wrap selected code in `#if ... #endif` block.                                                      | After cut selection | No  |
+|    `if`     | Wrap selected code in `if (...)` block.                                                            | After cut selection | No  |
+|    `do`     | Wrap selected code in `do ... while(0)` block.                                                     | After cut selection | No  |
+|   `while`   | Wrap selected code in `while (...)` block.                                                         | After cut selection | No  |
+|    `#de`    | Wrap selected code in `#define ...` block.                                                         | After cut selection | No  |
 
 #### Auto-snippets
 
