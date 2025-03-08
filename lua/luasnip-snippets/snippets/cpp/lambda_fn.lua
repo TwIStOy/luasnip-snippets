@@ -15,6 +15,7 @@ local f = ls.function_node
 ---@field CPP_CLASS_BODY_START { [1]: number, [2]: number }?
 ---@field CPP_IN_HEADER_FILE boolean
 ---@field CPP_IN_QUALIFIED_FUNCTION boolean
+---@field LS_SELECT_RAW? string[]
 
 ---Returns if the node's declarator is qualified or not.
 ---@param node TSNode? `function_definition` node

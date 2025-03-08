@@ -164,6 +164,7 @@ return {
     name = "Pure virtual function",
     dscr = "Declare pure virtual function",
     mode = "bw",
+    resolveExpandParams = inject_class_name,
     nodes = fmta("virtual <ret_t> <name>(<args>) <specifier> = 0;", {
       name = i(1, "func", { dscr = "Function name" }),
       args = i(2, "args", { dscr = "Function arguments" }),

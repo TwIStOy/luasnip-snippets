@@ -151,7 +151,7 @@ Snippets with `*` are available only when `vim_snippet` is enabled.
 |    `cpo`    | Expands to customize point object.                                                                 |         No          |     |                   |
 | `ns%s(%S+)` | Expands to namespace block (including comments).                                                   |         No          |     |                   |
 |    `itf`    | Expands to a struct with default virtual destruction.                                              |         No          |     |                   |
-|    `pvf`    | Expands to a pure virtual function declaration.                                                    |         No          |     |                   |
+|    `pvf`    | Expands to a pure virtual function declaration.                                                    |      In Class       |     |                   |
 |   `qcls`    | Expands to a class inherts from QObject.                                                           |         No          | Yes |                   |
 |    `#if`    | Wrap selected code in `#if ... #endif` block.                                                      | After cut selection | No  |                   |
 |    `if`     | Wrap selected code in `if (...)` block.                                                            | After cut selection | No  |                   |
