@@ -17,10 +17,7 @@ local Config = require("luasnip-snippets.config")
 local Utils = require("luasnip-snippets.utils")
 local CppCommons = require("luasnip-snippets.snippets.cpp.commons")
 
-local function has_select_raw_fn(_, _, _)
-  return Utils.get_buf_var(0, "LUASNIP_SELECT_RAW") ~= nil
-end
-local has_select_raw = Cond.make_condition(has_select_raw_fn, has_select_raw_fn)
+local has_select_raw = CommonCond.has_select_raw
 
 return {
   snippet {

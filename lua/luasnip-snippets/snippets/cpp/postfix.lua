@@ -5,6 +5,10 @@ local Utils = require("luasnip-snippets.utils")
 local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
 local i = require("luasnip-snippets.nodes").insert_node
+---@type luasnip-snippets.nodes
+local Nodes = require("luasnip-snippets.nodes")
+local snippet = Nodes.construct_snippet
+local CommonCond = require("luasnip-snippets.utils.common_cond")
 
 local expr_query = [[
 [
@@ -36,41 +40,57 @@ local function expr_tsp(trig, expand, dscr)
   end
   local replaced = expand:gsub("?", "%%s")
 
-  return tsp.treesitter_postfix({
-    trig = trig,
-    name = name,
-    dscr = dscr,
-    wordTrig = false,
-    reparseBuffer = "live",
-    matchTSNode = {
-      query = expr_query,
-      query_lang = "cpp",
+  return {
+    snippet {
+      trig,
+      name = name,
+      dscr = dscr,
+      mode = "w",
+      lang = "cpp",
+      cond = CommonCond.has_select_raw,
+      nodes = {
+        f(function(_, snip)
+          local _, env = {}, snip.env
+          return Utils.replace_all(env.LS_SELECT_RAW, replaced)
+        end),
+      },
     },
-  }, {
-    f(function(_, parent)
-      return Utils.replace_all(parent.snippet.env.LS_TSMATCH, replaced)
-    end, {}),
-  })
+    tsp.treesitter_postfix({
+      trig = "." .. trig,
+      name = name,
+      dscr = dscr,
+      wordTrig = false,
+      reparseBuffer = "live",
+      matchTSNode = {
+        query = expr_query,
+        query_lang = "cpp",
+      },
+    }, {
+      f(function(_, parent)
+        return Utils.replace_all(parent.snippet.env.LS_TSMATCH, replaced)
+      end, {}),
+    }),
+  }
 end
 
 return {
   expr_tsp(
-    ".be",
+    "be",
     "?.begin(), ?.end()",
     "Completes an expr with both begin() and end()"
   ),
   expr_tsp(
-    ".cbe",
+    "cbe",
     "?.cbegin(), ?.cend()",
     "Completes an expr with both cbegin() and cend()"
   ),
-  expr_tsp(".mv", "std::move(?)"),
-  expr_tsp(".fwd", "std::forward<decltype(?)>(?)"),
-  expr_tsp(".val", "std::declval<?>()"),
-  expr_tsp(".dt", "decltype(?)"),
-  expr_tsp(".uu", "(void)?"),
-  expr_tsp(".single", "ranges::views::single(?)"),
-  expr_tsp(".await", "co_await ?"),
+  expr_tsp("mv", "std::move(?)"),
+  expr_tsp("fwd", "std::forward<decltype(?)>(?)"),
+  expr_tsp("val", "std::declval<?>()"),
+  expr_tsp("dt", "decltype(?)"),
+  expr_tsp("uu", "(void)?"),
+  expr_tsp("single", "ranges::views::single(?)"),
+  expr_tsp("await", "co_await ?"),
 
   tsp.treesitter_postfix({
     trig = ".ts",
@@ -131,6 +151,28 @@ return {
     )
   ),
 
+  snippet {
+    "sc",
+    name = "(sc) static_cast<TYPE>(...)",
+    dscr = "Wraps an expression with static_cast<TYPE>(...)",
+    mode = "w",
+    lang = "cpp",
+    cond = CommonCond.has_select_raw,
+    nodes = fmt(
+      [[
+      static_cast<{body}>({selected}){cursor}
+      ]],
+      {
+        cursor = i(0),
+        body = i(1),
+        selected = f(function(_, snip)
+          local _, env = {}, snip.env
+          return Utils.replace_all(env.LS_SELECT_RAW, "%s")
+        end),
+      }
+    ),
+  },
+
   tsp.treesitter_postfix(
     {
       trig = ".rc",
@@ -156,6 +198,28 @@ return {
       }
     )
   ),
+
+  snippet {
+    "rc",
+    name = "(rc) reinterpret_cast<TYPE>(...)",
+    dscr = "Wraps an expression with reinterpret_cast<TYPE>(...)",
+    mode = "w",
+    lang = "cpp",
+    cond = CommonCond.has_select_raw,
+    nodes = fmt(
+      [[
+      reinterpret_cast<{body}>({selected}){cursor}
+      ]],
+      {
+        cursor = i(0),
+        body = i(1),
+        selected = f(function(_, snip)
+          local _, env = {}, snip.env
+          return Utils.replace_all(env.LS_SELECT_RAW, "%s")
+        end),
+      }
+    ),
+  },
 
   tsp.treesitter_postfix(
     {

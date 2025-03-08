@@ -1,4 +1,5 @@
 local Cond = require("luasnip-snippets.utils.cond")
+local Utils = require("luasnip-snippets.utils")
 
 local function line_begin_cond(line_to_cursor, matched_trigger, _)
   if matched_trigger == nil or line_to_cursor == nil then
@@ -57,7 +58,13 @@ local function generate_all_lines_before_match_cond(pattern)
   return Cond.make_condition(condition, condition)
 end
 
+local function has_select_raw_fn(_, _, _)
+  return Utils.get_buf_var(0, "LUASNIP_SELECT_RAW") ~= nil
+end
+local has_select_raw = Cond.make_condition(has_select_raw_fn, has_select_raw_fn)
+
 return {
   at_line_begin = at_line_begin,
   generate_all_lines_before_match_cond = generate_all_lines_before_match_cond,
+  has_select_raw = has_select_raw,
 }

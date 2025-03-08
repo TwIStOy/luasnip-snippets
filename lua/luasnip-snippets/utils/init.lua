@@ -36,7 +36,16 @@ function M.concat_snippets(base, snippets)
     end
     vim.list_extend(ret, snippet_module)
   end
-  return ret
+  -- flatten the list
+  local flat_ret = {}
+  for _, snippet in ipairs(ret) do
+    if vim.islist(snippet) then
+      vim.list_extend(flat_ret, snippet)
+    else
+      flat_ret[#flat_ret + 1] = snippet
+    end
+  end
+  return flat_ret
 end
 
 function M.reverse_list(lst)
