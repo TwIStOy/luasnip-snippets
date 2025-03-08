@@ -143,16 +143,20 @@ Snippets with `*` are available only when `vim_snippet` is enabled.
 
 #### Normal Snippets
 
-|    Trig     | Desc                                                                                               | Context Required | Qt  |
-| :---------: | -------------------------------------------------------------------------------------------------- | :--------------: | :-: |
-|    `fn`     | Expands to lambda function in argument list or function body, otherwise expand to normal function. |        No        |     |
-|  `\|trans`  | Expands to ranges::views::transform pipe.                                                          |        No        |     |
-| `\|filter`  | Expands to ranges::views::filter pipe.                                                             |        No        |     |
-|    `cpo`    | Expands to customize point object.                                                                 |        No        |     |
-| `ns%s(%S+)` | Expands to namespace block (including comments).                                                   |        No        |     |
-|    `itf`    | Expands to a struct with default virtual destruction.                                              |        No        |     |
-|    `pvf`    | Expands to a pure virtual function declaration.                                                    |        No        |     |
-|   `qcls`    | Expands to a class inherts from QObject.                                                           |        No        | Yes |
+|    Trig     | Desc                                                                                               |  Context Required   | Qt  |
+| :---------: | -------------------------------------------------------------------------------------------------- | :-----------------: | :-: |
+|    `fn`     | Expands to lambda function in argument list or function body, otherwise expand to normal function. |         No          |     |
+|  `\|trans`  | Expands to ranges::views::transform pipe.                                                          |         No          |     |
+| `\|filter`  | Expands to ranges::views::filter pipe.                                                             |         No          |     |
+|    `cpo`    | Expands to customize point object.                                                                 |         No          |     |
+| `ns%s(%S+)` | Expands to namespace block (including comments).                                                   |         No          |     |
+|    `itf`    | Expands to a struct with default virtual destruction.                                              |         No          |     |
+|    `pvf`    | Expands to a pure virtual function declaration.                                                    |         No          |     |
+|   `qcls`    | Expands to a class inherts from QObject.                                                           |         No          | Yes |
+|    `#if`    | Expands to `#if` statement.                                                                        | After cut selection | No  |
+|    `if`     | Expands to `if` statement.                                                                         | After cut selection | No  |
+|    `do`     | Expands to `do ... while (0)` statement.                                                           | After cut selection | No  |
+|   `while`   | Expands to `while` statement.                                                                      | After cut selection | No  |
 
 #### Auto-snippets
 
