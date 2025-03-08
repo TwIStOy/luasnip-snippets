@@ -7,6 +7,7 @@ local fmta = require("luasnip.extras.fmt").fmta
 local CppCommons = require("luasnip-snippets.snippets.cpp.commons")
 local i = require("luasnip-snippets.nodes").insert_node
 local c = require("luasnip-snippets.nodes").choice_node
+local f = ls.function_node
 
 ---@class LSSnippets.Cpp.Fn.Env
 ---@field CPP_ARGUMENT_START { [1]: number, [2]: number }?
@@ -115,6 +116,9 @@ local function make_lambda_snippet_node(env)
       t(""),
       t(" mutable"),
     }),
+    selected = f(function()
+      return CppCommons.fix_leading_whitespace(env.LS_SELECT_RAW)
+    end),
     args = i(2),
   }
 
@@ -123,7 +127,7 @@ local function make_lambda_snippet_node(env)
     fmta(
       [[
       [<captures>](<args>)<specifier> {
-        <body>
+        <selected><body>
       }
       ]],
       fmt_args
@@ -162,12 +166,15 @@ local function make_function_snippet_node(env)
   fmt_args.name = i(3, "name", { desc = "function name" })
   fmt_args.args = i(4, "args", { desc = "function arguments" })
   fmt_args.specifier = c(5, specifiers, { desc = "specifier" })
+  fmt_args.selected = f(function()
+    return CppCommons.fix_leading_whitespace(env.LS_SELECT_RAW)
+  end)
   return sn(
     nil,
     fmta(
       [[
       <storage_specifier><inline_inline>auto <name>(<args>)<specifier> ->> <ret> {
-        <body>
+        <selected><body>
       }
       ]],
       fmt_args

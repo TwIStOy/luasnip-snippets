@@ -143,21 +143,21 @@ Snippets with `*` are available only when `vim_snippet` is enabled.
 
 #### Normal Snippets
 
-|    Trig     | Desc                                                                                               |  Context Required   | Qt  |
-| :---------: | -------------------------------------------------------------------------------------------------- | :-----------------: | :-: |
-|    `fn`     | Expands to lambda function in argument list or function body, otherwise expand to normal function. |         No          |     |
-|  `\|trans`  | Expands to ranges::views::transform pipe.                                                          |         No          |     |
-| `\|filter`  | Expands to ranges::views::filter pipe.                                                             |         No          |     |
-|    `cpo`    | Expands to customize point object.                                                                 |         No          |     |
-| `ns%s(%S+)` | Expands to namespace block (including comments).                                                   |         No          |     |
-|    `itf`    | Expands to a struct with default virtual destruction.                                              |         No          |     |
-|    `pvf`    | Expands to a pure virtual function declaration.                                                    |         No          |     |
-|   `qcls`    | Expands to a class inherts from QObject.                                                           |         No          | Yes |
-|    `#if`    | Wrap selected code in `#if ... #endif` block.                                                      | After cut selection | No  |
-|    `if`     | Wrap selected code in `if (...)` block.                                                            | After cut selection | No  |
-|    `do`     | Wrap selected code in `do ... while(0)` block.                                                     | After cut selection | No  |
-|   `while`   | Wrap selected code in `while (...)` block.                                                         | After cut selection | No  |
-|    `#de`    | Wrap selected code in `#define ...` block.                                                         | After cut selection | No  |
+|    Trig     | Desc                                                                                               |  Context Required   | Qt  | Support Selection |
+| :---------: | -------------------------------------------------------------------------------------------------- | :-----------------: | :-: | :---------------: |
+|    `fn`     | Expands to lambda function in argument list or function body, otherwise expand to normal function. |         No          |     |        Yes        |
+|  `\|trans`  | Expands to ranges::views::transform pipe.                                                          |         No          |     |                   |
+| `\|filter`  | Expands to ranges::views::filter pipe.                                                             |         No          |     |                   |
+|    `cpo`    | Expands to customize point object.                                                                 |         No          |     |                   |
+| `ns%s(%S+)` | Expands to namespace block (including comments).                                                   |         No          |     |                   |
+|    `itf`    | Expands to a struct with default virtual destruction.                                              |         No          |     |                   |
+|    `pvf`    | Expands to a pure virtual function declaration.                                                    |         No          |     |                   |
+|   `qcls`    | Expands to a class inherts from QObject.                                                           |         No          | Yes |                   |
+|    `#if`    | Wrap selected code in `#if ... #endif` block.                                                      | After cut selection | No  |                   |
+|    `if`     | Wrap selected code in `if (...)` block.                                                            | After cut selection | No  |                   |
+|    `do`     | Wrap selected code in `do ... while(0)` block.                                                     | After cut selection | No  |                   |
+|   `while`   | Wrap selected code in `while (...)` block.                                                         | After cut selection | No  |                   |
+|    `#de`    | Wrap selected code in `#define ...` block.                                                         | After cut selection | No  |                   |
 
 #### Auto-snippets
 
