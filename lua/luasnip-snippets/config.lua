@@ -17,6 +17,7 @@
 ---@class LSSnippets.Config.Snippet.Cpp
 ---@field quick_type? LSSnippets.Config.Snippet.Cpp.QuickType
 ---@field qt? boolean Enable Qt related snippets.
+---@field cpplint? boolean Whether to add cpplint related comments in some snippets.
 
 ---@class LSSnippets.Config.Snippet.Rust
 ---@field rstest_support? boolean
@@ -59,7 +60,16 @@ local function get(key)
   return value
 end
 
----return bool
+---@generic T
+---@param key string
+---@param default T
+---@return T
+local function get_default(key, default)
+  local value = get(key)
+  return value == nil and default or value
+end
+
+---@return boolean
 local function auto_expansion_disabled(lang, trig)
   ---@type luasnip-snippets.utils.tbl
   local Tbl = require("luasnip-snippets.utils.tbl")
@@ -72,6 +82,7 @@ end
 local M = {
   setup = setup,
   get = get,
+  get_default = get_default,
   auto_expansion_disabled = auto_expansion_disabled,
 }
 

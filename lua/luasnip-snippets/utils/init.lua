@@ -46,4 +46,11 @@ function M.reverse_list(lst)
   end
 end
 
+function M.get_buf_var(bufnr, key)
+  local succ, value = pcall(vim.api.nvim_buf_get_var, bufnr, key)
+  if succ then
+    return value
+  end
+end
+
 return M

@@ -59,6 +59,8 @@ Config Example:
         },
         -- enable qt-related snippets
         qt = true,
+        -- whether to add cpplint related comments in some snippets
+        cpplint = true,
       },
     },
     rust = {
@@ -154,28 +156,29 @@ Snippets with `*` are available only when `vim_snippet` is enabled.
 
 #### Auto-snippets
 
-|   Trig   | Desc                                                      |       Context Required        | Could Disable AutoExpansion | Qt  |
-| :------: | --------------------------------------------------------- | :---------------------------: | :-------------------------: | :-: |
-| `ctor!`  | Expands to default constructor.                           |           In Class            |             No              |     |
-| `dtor!`  | Expands to default destructor.                            |           In Class            |             No              |     |
-|  `cc!`   | Expands to default copy constructor.                      |           In Class            |             No              |     |
-|  `mv!`   | Expands to default move constructor.                      |           In Class            |             No              |     |
-|  `ncc!`  | Expands to delete copy constructor.                       |           In Class            |             No              |     |
-|  `nmv!`  | Expands to delete move constructor.                       |           In Class            |             No              |     |
-|  `ncm!`  | Expands to delete copy and move constructor.              |           In Class            |             No              |     |
-|  `once`  | Expands to `pragma once` marker at the front of the file. | All lines before are comments |             Yes             |     |
-|   `u8`   | Expands to `uint8_t`.                                     |              No               |             Yes             |     |
-|  `u16`   | Expands to `uint16_t`.                                    |              No               |             Yes             |     |
-|  `u32`   | Expands to `uint32_t`.                                    |              No               |             Yes             |     |
-|  `u64`   | Expands to `uint64_t`.                                    |              No               |             Yes             |     |
-|   `i8`   | Expands to `int8_t`.                                      |              No               |             Yes             |     |
-|  `i16`   | Expands to `int16_t`.                                     |              No               |             Yes             |     |
-|  `i32`   | Expands to `int32_t`.                                     |              No               |             Yes             |     |
-|  `i64`   | Expands to `int64_t`.                                     |              No               |             Yes             |     |
-| `t(%s)!` | Evaluates (QET) marker, and expand to typename.           |              No               |             No              |     |
-|   `#"`   | Expands to include statement with quotes. `#include ""`.  |              No               |             Yes             |     |
-|   `#<`   | Expands to include statement with `<>`. `#include <>`.    |              No               |             Yes             |     |
-|   `#q`   | Expands to include qt generated moc file.                 |              No               |             Yes             | Yes |
+|   Trig   | Desc                                                      |       Context Required        | Could Disable AutoExpansion | Qt  | Support Selection |
+| :------: | --------------------------------------------------------- | :---------------------------: | :-------------------------: | :-: | :---------------: |
+| `ctor!`  | Expands to default constructor.                           |           In Class            |             No              |     |                   |
+| `dtor!`  | Expands to default destructor.                            |           In Class            |             No              |     |                   |
+|  `cc!`   | Expands to default copy constructor.                      |           In Class            |             No              |     |                   |
+|  `mv!`   | Expands to default move constructor.                      |           In Class            |             No              |     |                   |
+|  `ncc!`  | Expands to delete copy constructor.                       |           In Class            |             No              |     |                   |
+|  `nmv!`  | Expands to delete move constructor.                       |           In Class            |             No              |     |                   |
+|  `ncm!`  | Expands to delete copy and move constructor.              |           In Class            |             No              |     |                   |
+|  `once`  | Expands to `pragma once` marker at the front of the file. | All lines before are comments |             Yes             |     |                   |
+|   `u8`   | Expands to `uint8_t`.                                     |              No               |             Yes             |     |                   |
+|  `u16`   | Expands to `uint16_t`.                                    |              No               |             Yes             |     |                   |
+|  `u32`   | Expands to `uint32_t`.                                    |              No               |             Yes             |     |                   |
+|  `u64`   | Expands to `uint64_t`.                                    |              No               |             Yes             |     |                   |
+|   `i8`   | Expands to `int8_t`.                                      |              No               |             Yes             |     |                   |
+|  `i16`   | Expands to `int16_t`.                                     |              No               |             Yes             |     |                   |
+|  `i32`   | Expands to `int32_t`.                                     |              No               |             Yes             |     |                   |
+|  `i64`   | Expands to `int64_t`.                                     |              No               |             Yes             |     |                   |
+| `t(%s)!` | Evaluates (QET) marker, and expand to typename.           |              No               |             No              |     |                   |
+|   `#"`   | Expands to include statement with quotes. `#include ""`.  |              No               |             Yes             |     |                   |
+|   `#<`   | Expands to include statement with `<>`. `#include <>`.    |              No               |             Yes             |     |                   |
+|   `#q`   | Expands to include qt generated moc file.                 |              No               |             Yes             | Yes |                   |
+|   `#?`   | Expands to `ifdef ... endif` fragment.                    |              No               |             Yes             |     |        Yes        |
 
 ##### Quick Expand Type markers
 
@@ -228,6 +231,15 @@ tmss! -> absl::flat_hash_map<std::string, std::string>
 | `.single` | Wraps with `ranges::views::single(?)`.                               |     `any_expr`     |
 | `.await`  | Expands to `co_await ?`.                                             |     `any_expr`     |
 |   `.in`   | Expands to `if (...find)` statements.                                |     `any_expr`     |
+
+#### Cpplint
+
+Currently, some snippets will be expanded with cpplint related comments, e.g. `once`(which will expand to `#pragma once  // NOLINT(build/header_guard)`).
+
+You can control whether to add cpplint related comments in these snippets by:
+
+- Updating `snippet.cpp.cpplint` in your config. This will affect all buffers.
+- Setting buffer variable `b:LuasnipSnippetsCppCppLint`. This will only affect the current buffer, and it will override the global setting.
 
 </details>
 

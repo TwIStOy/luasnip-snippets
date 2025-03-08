@@ -7,7 +7,12 @@ local c = Nodes.choice_node
 local fmta = require("luasnip.extras.fmt").fmta
 local f = ls.function_node
 local t = ls.text_node
+local rep = require("luasnip.extras").rep
 local CommonCond = require("luasnip-snippets.utils.common_cond")
+---@type luasnip-snippets.config
+local Config = require("luasnip-snippets.config")
+---@type luasnip-snippets.utils
+local Utils = require("luasnip-snippets.utils")
 
 local function cpo_snippet()
   local function cpo_func_to_namespace(name)
@@ -111,7 +116,6 @@ local default_quick_markers = {
 ---@return string?
 local function quick_type(shortcut)
   ---@type luasnip-snippets.config
-  local Config = require("luasnip-snippets.config")
   local quick_markers = Config.get("snippet.cpp.quick_type.extra_trig") or {}
   local markers = vim.deepcopy(default_quick_markers)
   for _, marker in ipairs(quick_markers) do
@@ -190,7 +194,20 @@ return {
     lang = "cpp",
     cond = all_lines_before_are_all_comments,
     nodes = {
-      t { "#pragma once  // NOLINT(build/header_guard)", "" },
+      f(function()
+        local buffer_settings =
+          Utils.get_buf_var(0, "LuasnipSnippetsCppCppLint")
+
+        local use_cpplint = vim.F.if_nil(
+          buffer_settings,
+          Config.get_default("snippet.cpp.cpplint", true)
+        )
+        if use_cpplint then
+          return { "#pragma once  // NOLINT(build/header_guard)", "" }
+        else
+          return { "#pragma once", "" }
+        end
+      end),
     },
   },
 
@@ -218,6 +235,35 @@ return {
       i(1, "header"),
       t(">"),
     },
+  },
+
+  -- preprocessor directives short cuts
+  snippet {
+    "#?",
+    name = "#ifdef",
+    dscr = "Expands to #ifdef ... #endif",
+    mode = "bA",
+    lang = "cpp",
+    nodes = fmta(
+      [[
+      #<directive> <name>
+      <selected><cursor>
+      #endif  // <name_r>
+      ]],
+      {
+        directive = c(1, {
+          t("ifdef"),
+          t("ifndef"),
+        }, { desc = "Directive" }),
+        name = i(2, "name"),
+        cursor = i(0),
+        selected = f(function(_, snip)
+          local _, env = {}, snip.env
+          return env.LS_SELECT_RAW
+        end),
+        name_r = rep(2),
+      }
+    ),
   },
 
   -- fast int types
