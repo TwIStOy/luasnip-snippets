@@ -6,6 +6,7 @@ local t = ls.text_node
 local fmta = require("luasnip.extras.fmt").fmta
 local snippet = require("luasnip-snippets.nodes").construct_snippet
 local i = require("luasnip-snippets.nodes").insert_node
+local c = require("luasnip-snippets.nodes").choice_node
 local rep = require("luasnip.extras").rep
 
 local function inject_class_name(_, line_to_cursor, match, captures)
@@ -166,7 +167,7 @@ return {
     nodes = fmta("virtual <ret_t> <name>(<args>) <specifier> = 0;", {
       name = i(1, "func", { dscr = "Function name" }),
       args = i(2, "args", { dscr = "Function arguments" }),
-      specifier = i(3, "const", { dscr = "Function specifier" }),
+      specifier = c(3, { t(""), t("const") }, { dscr = "Function specifier" }),
       ret_t = i(4, "void", { dscr = "Return type" }),
     }),
   },
