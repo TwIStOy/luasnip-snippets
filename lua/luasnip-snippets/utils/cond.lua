@@ -6,7 +6,7 @@ local M = {}
 ---@operator add(LSSnippets.ConditionFuncObject): LSSnippets.ConditionFuncObject
 ---@operator div(LSSnippets.ConditionFuncObject): LSSnippets.ConditionFuncObject
 ---@operator pow(LSSnippets.ConditionFuncObject): LSSnippets.ConditionFuncObject
----@operator call(): boolean
+---@operator call: boolean
 local ConditionFuncObject = {
   -- not '-'
   __unm = function(o1)

@@ -3,6 +3,7 @@ local UtilsTS = require("luasnip-snippets.utils.treesitter")
 local d = ls.dynamic_node
 local sn = ls.snippet_node
 local t = ls.text_node
+local f = ls.function_node
 local fmta = require("luasnip.extras.fmt").fmta
 local snippet = require("luasnip-snippets.nodes").construct_snippet
 local i = require("luasnip-snippets.nodes").insert_node
@@ -35,11 +36,11 @@ return {
     dscr = "#include qt generated MOC file",
     mode = "bA",
     lang = "cpp",
-    nodes = {
-      t((function()
+    nodes = fmta('#include "moc_<filename>"', {
+      filename = f(function()
         local filename = vim.fn.expand("%:t")
-        return ('#include "moc_%s"'):format(filename)
-      end)()),
-    },
+        return ("%s"):format(filename)
+      end),
+    }),
   },
 }
