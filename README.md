@@ -357,3 +357,14 @@ You can control whether to add cpplint related comments in these snippets by:
 | `.split` | Expands bindings to full attrset style. |     `binding`      |
 
 </details>
+
+<details>
+<summary>Go</summary>
+
+### Normal Snippets
+
+|  Trig  | Desc                                  | Context Required |
+| :----: | ------------------------------------- | :--------------: |
+| `err!` | Expands to error returning statement. | In Function Body |
+
+</details>

@@ -46,12 +46,13 @@ function M.setup(opts)
   load_and_add_snippet(vim.tbl_filter(function(l)
     return not vim.tbl_contains(Config.get("disable_langs") or {}, l)
   end, {
-    "cpp",
-    "rust",
-    "lua",
-    "dart",
-    "nix",
     "all",
+    "cpp",
+    "dart",
+    "go",
+    "lua",
+    "nix",
+    "rust",
     "typescript",
   }))
 end
